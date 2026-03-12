@@ -1,0 +1,11 @@
+{
+  "label": "openclaw-vllm",
+  "id": "openclaw-vllm",
+  "provider": {
+    "type": "custom",
+    "endpoint": "http://vllm-server:8000/v1/chat/completions",
+    "api_key": "dummy",
+    "compatibility": "openai"
+  },
+  "model": "meta-llama/Llama-2-7b-chat-hf"
+}
