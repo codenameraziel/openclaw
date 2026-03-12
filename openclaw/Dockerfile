@@ -1,7 +1,7 @@
 FROM python:3.10-slim
 
-# Instala dependencias necessarias
-RUN pip install --no-cache-dir openclaw vllm huggingface_hub tenacity httpx
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8080
 

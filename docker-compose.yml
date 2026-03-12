@@ -3,6 +3,8 @@ services:
   vllm:
     build: ./vllm
     container_name: vllm-server
+    environment:
+      - VLLM_LOGGING_LEVEL=DEBUG   # opcional, para ver logs detalhados
     ports:
       - "9000:8000"
 
