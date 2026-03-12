@@ -1,25 +1,24 @@
 version: "3.9"
 services:
-  vllm:
-    build: ./vllm
-    container_name: vllm-server
-    environment:
-      - VLLM_LOGGING_LEVEL=DEBUG   # opcional, para ver logs detalhados
-    command: >
-      python -m vllm.entrypoints.openai.api_server
-      --model meta-llama/Llama-2-7b-chat-hf
-      --port 8000
-      --host 0.0.0.0
-      --device cpu
+  browser:
+    image: nginx:alpine
+    container_name: browser-stub
+    command: ["sh", "-c", "echo 'stub browser service' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"]
     ports:
-      - "9000:8000"
+      - "8888:80"
 
   openclaw:
-    build: ./openclaw
+    image: coollabsio/openclaw:latest
     container_name: openclaw-web
     environment:
       - MODELS_CONFIG=/etc/openclaw/modelsConfig.json
+      - OPENCLAW_GATEWAY_TOKEN=seu_token_aqui
+      - OLLAMA_BASE_URL=http://llama-gpt-api:8000
+      - gateway.controlUi.allowedOrigins=http://192.168.100.105:3100
     volumes:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json
     ports:
-      - "3000:8080"
+      - "3100:8080"   # interface principal
+      - "18791:18791" # browser control
+    depends_on:
+      - browser
