@@ -1,9 +1,9 @@
-{
-  "label": "openclaw-vllm",
-  "id": "openclaw-vllm",
+{{
+  "label": "llama-gpt",
+  "id": "llama-gpt",
   "provider": {
     "type": "custom",
-    "endpoint": "http://vllm-server:8000/v1/chat/completions",
+    "endpoint": "http://llama-gpt-api:8000/v1/chat/completions",
     "api_key": "dummy",
     "compatibility": "openai"
   },

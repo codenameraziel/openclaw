@@ -3,3 +3,4 @@ vllm
 huggingface_hub
 tenacity
 httpx
+cmdop==0.3.0
