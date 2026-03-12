@@ -4,7 +4,7 @@ services:
     build: ./vllm
     container_name: vllm-server
     ports:
-      - "9000:8000"   # vLLM acessivel externamente na porta 9000
+      - "9000:8000"
 
   openclaw:
     build: ./openclaw
@@ -14,4 +14,4 @@ services:
     volumes:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json
     ports:
-      - "3000:8080"   # OpenClaw acessivel externamente na porta 3000
+      - "3000:8080"
