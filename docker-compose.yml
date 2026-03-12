@@ -4,14 +4,14 @@ services:
     build: ./vllm
     container_name: vllm-server
     ports:
-      - "9000:8000"
+      - "9000:8000"   # vLLM acessivel externamente na porta 9000
 
   openclaw:
-    build: ./openclaw   # usa o Dockerfile local
+    build: ./openclaw
     container_name: openclaw-web
     environment:
       - MODELS_CONFIG=/etc/openclaw/modelsConfig.json
     volumes:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json
     ports:
-      - "3000:8080"
+      - "3000:8080"   # OpenClaw acessivel externamente na porta 3000
