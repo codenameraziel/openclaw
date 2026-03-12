@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  openclaw-gateway:
+    build: ./open
+    container_name: openclaw-gateway
+    restart: unless-stopped
+    ports:
+      - "18790:18790"
+    environment:
+      - NODE_ENV=production
+      - DEVICE_IDENTITY_REQUIRED=true
+      - DATABASE_URL=postgres://openclaw:openclaw@db:5432/openclaw
+    volumes:
+      - ./data:/usr/src/app/data
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: openclaw-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=openclaw
+      - POSTGRES_PASSWORD=openclaw
+      - POSTGRES_DB=openclaw
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
