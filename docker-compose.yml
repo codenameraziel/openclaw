@@ -18,7 +18,7 @@ services:
     volumes:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
       - ./logs:/tmp/openclaw
-      - ./openclaw-data:/data        # <-- volume para /data
+      - ./openclaw-data:/data
     ports:
       - "3100:8080"
       - "18792:18791"

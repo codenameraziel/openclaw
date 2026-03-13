@@ -2,10 +2,11 @@ FROM coollabsio/openclaw:latest
 
 USER root
 
-# Cria o diretório /data e ajusta permissões
-RUN mkdir -p /data && chown -R 1000:1000 /data
+# Cria os diretórios esperados pelo OpenClaw e ajusta permissões
+RUN mkdir -p /data/npm-global /data/uv /data/go /data/workspace /data/.openclaw \
+    && chown -R 1000:1000 /data
 
-# Instala utilitários
+# Instala utilitários úteis para debug e manutenção
 RUN apt-get update && apt-get install -y \
     nano \
     curl \
@@ -17,5 +18,5 @@ RUN apt-get update && apt-get install -y \
     htop \
     && rm -rf /var/lib/apt/lists/*
 
-# Volta para o usuário padrão
+# Volta para o usuário padrão (UID 1000)
 USER 1000
