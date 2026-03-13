@@ -1,11 +1,20 @@
-{
-  "label": "llama-gpt",
-  "id": "llama-gpt",
-  "provider": {
-    "type": "custom",
-    "endpoint": "http://llama-gpt-api:8000/v1/chat/completions",
-    "api_key": "dummy",
-    "compatibility": "openai"
+[
+  {
+    "label": "phi3",
+    "id": "phi3",
+    "provider": {
+      "type": "ollama",
+      "endpoint": "http://ollama-proxy:8000"
+    },
+    "model": "phi3"
   },
-  "model": "meta-llama/Llama-2-7b-chat-hf"
-}
+  {
+    "label": "llama2",
+    "id": "llama2",
+    "provider": {
+      "type": "ollama",
+      "endpoint": "http://ollama-proxy:8000"
+    },
+    "model": "llama2"
+  }
+]
