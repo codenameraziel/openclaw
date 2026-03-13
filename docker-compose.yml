@@ -14,7 +14,7 @@ services:
       MODELS_CONFIG: /etc/openclaw/modelsConfig.json
       OPENCLAW_GATEWAY_TOKEN: a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6
       OLLAMA_BASE_URL: http://ollama-proxy:8000   # usa o proxy ja existente
-      gateway.controlUi.allowedOrigins: "http://umbrel.tailc9398a.ts.net:3100,http://192.168.100.105:3100"
+      gateway.controlUi.allowedOrigins: "*"
       gateway.trustedProxies: "*"
       LLM_TIMEOUT: 120
       REQUEST_TIMEOUT: 120
