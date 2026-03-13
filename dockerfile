@@ -2,9 +2,9 @@ FROM coollabsio/openclaw:latest
 
 USER root
 
-# Cria os diretórios esperados pelo OpenClaw e ajusta permissões
+# Cria os diretórios esperados pelo OpenClaw e garante permissões
 RUN mkdir -p /data/npm-global /data/uv /data/go /data/workspace /data/.openclaw \
-    && chown -R 1000:1000 /data
+    && chmod -R 777 /data
 
 # Instala utilitários úteis para debug e manutenção
 RUN apt-get update && apt-get install -y \
@@ -18,5 +18,4 @@ RUN apt-get update && apt-get install -y \
     htop \
     && rm -rf /var/lib/apt/lists/*
 
-# Volta para o usuário padrão (UID 1000)
-USER 1000
+# Mantém o container rodando como root para evitar problemas de permissão
