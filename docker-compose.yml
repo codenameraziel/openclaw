@@ -1,17 +1,21 @@
-version: "3.8"
+version: "3.9"
 
 services:
+  browser:
+    image: nginx:alpine
+    container_name: browser-stub
+    command: ["sh", "-c", "echo 'stub browser service' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"]
+    ports:
+      - "8888:80"
+
   openclaw:
     image: coollabsio/openclaw:latest
-    container_name: openclaw
+    container_name: openclaw-web
     restart: unless-stopped
-    ports:
-      - "3100:8080"     # Interface principal
-      - "18789:18789"   # Gateway
-      - "18791:18791"   # Browser Control / WebSocket
     environment:
       MODELS_CONFIG: /etc/openclaw/modelsConfig.json
       OPENCLAW_GATEWAY_TOKEN: a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6
+      OLLAMA_BASE_URL: http://ollama-proxy:8000
       gateway.controlUi.allowedOrigins: "http://192.168.100.105:3100,https://openclaw.tailc9398a.ts.net"
       gateway.trustedProxies: "192.168.100.0/24"
       LLM_TIMEOUT: 120
@@ -19,3 +23,6 @@ services:
     volumes:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
       - ./logs:/tmp/openclaw
+    ports:
+      - "3100:8080"   # interface principal (externo 3100 ? interno 8080)
+      - "18791:18791" # browser control / WebSocket
