@@ -35,4 +35,4 @@ services:
 
 networks:
   proxy_network:
-    external: true  # Defina como 'true' se a rede do seu Caddy/Umbrel já existir
+    external: true  # Defina como 'true' se a rede do seu Caddy/Umbrel ja existir
