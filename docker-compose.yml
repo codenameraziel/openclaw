@@ -1,8 +1,8 @@
-version: "3.9"
-
 services:
   openclaw:
-    image: coollabsio/openclaw:latest
+    build: 
+      context: .
+      dockerfile: Dockerfile
     container_name: openclaw-web
     restart: unless-stopped
     environment:
@@ -21,14 +21,3 @@ services:
       - "18792:18791"
     networks:
       - umbrel_main_network
-
-  browser:
-    image: nginx:alpine
-    container_name: browser
-    restart: unless-stopped
-    networks:
-      - umbrel_main_network
-
-networks:
-  umbrel_main_network:
-    external: true
