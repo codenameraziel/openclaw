@@ -1,13 +1,6 @@
 version: "3.9"
 
 services:
-  browser:
-    image: nginx:alpine
-    container_name: browser-stub
-    command: ["sh", "-c", "echo 'stub browser service' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"]
-    networks:
-      - proxy_network
-
   openclaw:
     image: coollabsio/openclaw:latest
     container_name: openclaw-web
@@ -16,7 +9,6 @@ services:
       MODELS_CONFIG: /etc/openclaw/modelsConfig.json
       OPENCLAW_GATEWAY_TOKEN: a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6
       OLLAMA_BASE_URL: http://ollama-proxy:8000
-      # Corrigido para o padrao de ambiente e aceitando HTTP/HTTPS
       GATEWAY_CONTROLUI_ALLOWEDORIGINS: "https://umbrel.tailc9398a.ts.net:3100,http://umbrel.tailc9398a.ts.net:3100"
       GATEWAY_TRUSTEDPROXIES: "0.0.0.0/0"
       LLM_TIMEOUT: 120
@@ -24,15 +16,10 @@ services:
     volumes:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
       - ./logs:/tmp/openclaw
-    # As portas foram removidas aqui porque o Caddy fara o roteamento interno.
-    # Se voce NAO usar Caddy para a porta 3100, pode descomentar as linhas abaixo.
-    # ports:
-    #   - "3100:8080"
-    #   - "18792:18791"
-    #   - "18800:18789"
     networks:
-      - proxy_network
+      - umbrel_main_network
 
 networks:
-  proxy_network:
-    external: true  # Defina como 'true' se a rede do seu Caddy/Umbrel ja existir
+  umbrel_main_network:
+    external: true   # usa a rede ja criada pelo Umbrel
+
