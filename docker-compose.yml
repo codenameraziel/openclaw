@@ -14,7 +14,8 @@ services:
       - MODELS_CONFIG=/etc/openclaw/modelsConfig.json
       - OPENCLAW_GATEWAY_TOKEN=seu_token_aqui
       - OLLAMA_BASE_URL=http://llama-gpt-api:8000
-      - gateway.controlUi.allowedOrigins=http://192.168.100.105:3100
+      - gateway.controlUi.allowedOrigins=*       # aceita qualquer origem (PC, celular, etc.)
+      - gateway.trustedProxies=*                 # aceita cabeçalhos de proxy (Umbrel/Caddy)
     volumes:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json
     ports:
