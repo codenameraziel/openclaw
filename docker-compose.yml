@@ -33,4 +33,4 @@ services:
 
 networks:
   umbrel_main_network:
-    external: true   # usa a rede já existente no Docker
+    external: true   # usa a rede ja existente no Docker
