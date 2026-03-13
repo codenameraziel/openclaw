@@ -24,5 +24,6 @@ services:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
       - ./logs:/tmp/openclaw
     ports:
-      - "3100:8080"   # interface principal (externo 3100 ? interno 8080)
-      - "18791:18791" # browser control / WebSocket
+      - "3100:8080"    # interface principal (externo 3100 ? interno 8080)
+      - "18792:18791"  # browser control / WebSocket (externo 18792 ? interno 18791)
+      - "18800:18789"  # gateway (externo 18800 ? interno 18789)
