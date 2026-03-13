@@ -6,7 +6,7 @@ services:
     container_name: openclaw
     restart: unless-stopped
     ports:
-      - "8888:8080"     # Interface principal
+      - "3100:8080"     # Interface principal
       - "18789:18789"   # Gateway
       - "18791:18791"   # Browser Control / WebSocket
     environment:
