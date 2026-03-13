@@ -17,11 +17,18 @@ services:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
       - ./logs:/tmp/openclaw
     ports:
-      - "3100:8080"    # UI acessivel em http://<IP_do_host>:3100
-      - "18792:18791" # WebSocket acessivel em ws://<IP_do_host>:18792
+      - "3100:8080"
+      - "18792:18791"
+    networks:
+      - umbrel_main_network
+
+  browser:
+    image: nginx:alpine
+    container_name: browser
+    restart: unless-stopped
     networks:
       - umbrel_main_network
 
 networks:
   umbrel_main_network:
-    external: true   # usa a rede ja criada pelo Umbrel
+    external: true
