@@ -4,7 +4,7 @@ services:
   openclaw:
     build: 
       context: .
-      dockerfile: Dockerfile   # usa o Dockerfile customizado com nano e utilitários
+      dockerfile: Dockerfile   # usa o Dockerfile customizado com nano e utilitarios
     container_name: openclaw-web
     restart: unless-stopped
     environment:
