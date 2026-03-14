@@ -1,12 +1,10 @@
-version: "3.9"
-
 services:
   openclaw:
     build: 
       context: .
       dockerfile: Dockerfile
     container_name: openclaw-web
-    restart: unless-stopped
+    restart: always
     environment:
       MODELS_CONFIG: /etc/openclaw/modelsConfig.json
       OPENCLAW_GATEWAY_TOKEN: a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6
@@ -19,7 +17,7 @@ services:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
       - openclaw_logs:/var/log/openclaw
       - ./openclaw-data:/data
-      - /var/run/docker.sock:/var/run/docker.sock   # <<< adicionado
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "3100:8080"
       - "18792:18791"
@@ -29,8 +27,7 @@ services:
   browser:
     image: nginx:alpine
     container_name: browser
-    restart: unless-stopped
+    restart: always
 
 volumes:
   openclaw_logs:
-  openclaw_data:
