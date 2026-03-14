@@ -1,0 +1,20 @@
+[
+  {
+    "label": "phi3",
+    "id": "phi3",
+    "provider": {
+      "type": "ollama",
+      "endpoint": "http://ollama-proxy:8000"
+    },
+    "model": "phi3"
+  },
+  {
+    "label": "llama2",
+    "id": "llama2",
+    "provider": {
+      "type": "ollama",
+      "endpoint": "http://ollama-proxy:8000"
+    },
+    "model": "llama2"
+  }
+]
