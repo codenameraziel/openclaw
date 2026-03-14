@@ -9,21 +9,24 @@ services:
     restart: unless-stopped
     environment:
       MODELS_CONFIG: /etc/openclaw/modelsConfig.json
-      OPENCLAW_GATEWAY_TOKEN: a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6
+      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN}
       OLLAMA_BASE_URL: http://ollama-proxy:8000
-      GATEWAY_CONTROLUI_ALLOWEDORIGINS: "https://umbrel.tailc9398a.ts.net,http://umbrel.tailc9398a.ts.net,http://192.168.100.105:3100"
+      GATEWAY_CONTROLUI_ALLOWEDORIGINS: "https://umbrel.tailc9398a.ts.net"
       GATEWAY_TRUSTEDPROXIES: "0.0.0.0/0"
       LLM_TIMEOUT: 120
       REQUEST_TIMEOUT: 120
+      AUTH_PASSWORD: changeme
     volumes:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
-      - ./logs:/tmp/openclaw
+      - openclaw_logs:/var/log/openclaw
       - ./openclaw-data:/data
     ports:
       - "3100:8080"
       - "18792:18791"
     networks:
       - umbrel_main_network
+    depends_on:
+      - browser
 
   browser:
     image: nginx:alpine
@@ -31,6 +34,10 @@ services:
     restart: unless-stopped
     networks:
       - umbrel_main_network
+
+volumes:
+  openclaw_logs:
+  openclaw_data:
 
 networks:
   umbrel_main_network:
