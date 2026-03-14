@@ -15,7 +15,6 @@ services:
       GATEWAY_TRUSTEDPROXIES: "0.0.0.0/0"
       LLM_TIMEOUT: 120
       REQUEST_TIMEOUT: 120
-      AUTH_PASSWORD: changeme
     volumes:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
       - openclaw_logs:/var/log/openclaw
