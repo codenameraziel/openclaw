@@ -6,15 +6,16 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: openclaw-web
-    restart: always   # garante que volte sempre apos reboot
+    restart: unless-stopped
     environment:
       MODELS_CONFIG: /etc/openclaw/modelsConfig.json
       OPENCLAW_GATEWAY_TOKEN: a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6
       OLLAMA_BASE_URL: http://ollama-proxy:8000
-      GATEWAY_CONTROLUI_ALLOWEDORIGINS: "https://umbrel.tailc9398a.ts.net,http://192.168.100.105:3100,"
+      GATEWAY_CONTROLUI_ALLOWEDORIGINS: "https://umbrel.tailc9398a.ts.net"
       GATEWAY_TRUSTEDPROXIES: "0.0.0.0/0"
       LLM_TIMEOUT: 120
       REQUEST_TIMEOUT: 120
+      AUTH_PASSWORD: changeme
     volumes:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
       - openclaw_logs:/var/log/openclaw
@@ -23,26 +24,18 @@ services:
       - "3100:8080"
       - "18792:18791"
     networks:
-      - internal_net
+      - umbrel_main_network
     depends_on:
       - browser
 
   browser:
     image: nginx:alpine
     container_name: browser
-    restart: always   # tambem ajustado para sempre reiniciar
+    restart: unless-stopped
     networks:
-      - internal_net
+      - umbrel_main_network
 
 volumes:
   openclaw_logs:
   openclaw_data:
 
-networks:
-  internal_net:
-    driver: bridge
-
-
-networks:
-  umbrel_main_network:
-    external: true
