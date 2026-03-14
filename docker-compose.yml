@@ -19,6 +19,7 @@ services:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
       - openclaw_logs:/var/log/openclaw
       - ./openclaw-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock   # <<< adicionado
     ports:
       - "3100:8080"
       - "18792:18791"
