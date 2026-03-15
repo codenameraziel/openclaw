@@ -17,6 +17,7 @@ services:
       - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
       - openclaw_logs:/var/log/openclaw
       - ./openclaw-data:/data
+      - ./openclaw-config:/app/config        # <-- monta /app/config no host
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "3100:8080"
