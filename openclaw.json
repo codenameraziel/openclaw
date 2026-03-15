@@ -1,0 +1,47 @@
+{
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6"
+    },
+    "controlUi": {
+      "allowInsecureAuth": true,
+      "enabled": true,
+      "allowedOrigins": [
+        "http://192.168.100.105:3100",
+        "http://localhost:3100",
+        "http://127.0.0.1:3100"
+      ]
+    },
+    "bind": "0.0.0.0",
+    "trustedProxies": [
+      "192.168.100.0/24",
+      "127.0.0.1/32"
+    ]
+  },
+  "agents": {
+    "defaults": {
+      "workspace": "/data/workspace",
+      "model": {
+        "primary": "ollama/llama3.3"
+      }
+    }
+  },
+  "models": {
+    "providers": {
+      "ollama": {
+        "api": "openai-completions",
+        "baseUrl": "http://ollama-proxy:8000/v1",
+        "models": [
+          {
+            "id": "llama3.3",
+            "name": "Llama 3.3",
+            "contextWindow": 128000
+          }
+        ]
+      }
+    }
+  }
+}
