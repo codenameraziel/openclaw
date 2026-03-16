@@ -1,4 +1,4 @@
-{
+{{
   "meta": {
     "lastTouchedVersion": "2026.3.8",
     "lastTouchedAt": "2026-03-16T01:06:35.850Z"
@@ -83,9 +83,9 @@
       "allowInsecureAuth": true,
       "dangerouslyDisableDeviceAuth": true,
       "allowedOrigins": [
-        "http://192.168.100.105:3100",
-        "http://127.0.0.1:3100",
-        "http://localhost:3100"
+        "http://192.168.100.105:18791",
+        "http://127.0.0.1:18791",
+        "http://localhost:18791"
       ]
     },
     "auth": {
