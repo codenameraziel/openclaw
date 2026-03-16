@@ -3,8 +3,6 @@ services:
     build: .
     container_name: openclaw-web
     restart: always
-    # Comando simplificado para evitar o erro "too many arguments"
-    command: ["gateway"]
     environment:
       - NODE_OPTIONS=--dns-result-order=ipv4first
       - OPENCLAW_GATEWAY_TOKEN=1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95

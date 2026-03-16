@@ -2,8 +2,11 @@ FROM ghcr.io/openclaw/openclaw:latest
 
 USER root
 
-RUN mkdir -p /data/workspace /data/.openclaw \
-    && chmod -R 777 /data
+# Garante as pastas e permissões
+RUN mkdir -p /data/workspace /data/.openclaw && chmod -R 777 /data
 
-# Removemos o ENTRYPOINT fixo para deixar o comando do Compose agir sozinho
+# Instala apenas o necessário para rede
+RUN apt-get update && apt-get install -y curl iputils-ping && rm -rf /var/lib/apt/lists/*
+
+# Não usamos ENTRYPOINT aqui para evitar conflito de módulos
 CMD ["openclaw", "gateway"]
