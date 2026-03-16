@@ -1,36 +1,55 @@
-version: "3.9"
+version: "3.8"
 
 services:
-  browser:
-    image: nginx:alpine
-    container_name: browser-stub
-    command: >
-      sh -c "echo 'stub browser service' > /usr/share/nginx/html/index.html &&
-      nginx -g 'daemon off;'"
-    ports:
-      - "8888:80"
-
   openclaw:
     image: coollabsio/openclaw:latest
-    container_name: openclaw-web
-    restart: unless-stopped
+    container_name: openclaw
+    ports:
+      - "8070:8080"     # UI
+      - "18789:18789"   # Gateway
     environment:
+      # Provider local (Ollama)
+      OLLAMA_BASE_URL: "http://127.0.0.1:8000"
       OPENCLAW_PRIMARY_MODEL: "mistral:7b-instruct-v0.3-q4_K_M"
       OPENCLAW_GATEWAY_TOKEN: "a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6"
-      OLLAMA_BASE_URL: "http://ollama-proxy:8000"
-      GATEWAY_CONTROLUI_ALLOWEDORIGINS: "https://openclaw.teccryptor3dprint.dpdns.org,http://192.18.100.105:8070"
-      GATEWAY_TRUSTEDPROXIES: "0.0.0.0/24"
-      LLM_TIMEOUT: 120
-      REQUEST_TIMEOUT: 120
+      # Auth
+      AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
+      AUTH_PASSWORD: "${AUTH_PASSWORD}"
+      # Browser sidecar (opcional)
+      BROWSER_CDP_URL: "http://browser:9223"
+      BROWSER_DEFAULT_PROFILE: "openclaw"
+      BROWSER_EVALUATE_ENABLED: "true"
     volumes:
       - openclaw-data:/data
       - ./openclaw.json:/app/config/openclaw.json
-      - ./logs:/tmp/openclaw
-    ports:
-      - "8070:8080"     # UI principal
-      - "18792:18791"   # API interna
-      - "18800:18789"   # Ajuste extra
+    depends_on:
+      - browser
+    networks:
+      - openclaw-net
+    restart: unless-stopped
+
+  browser:
+    image: coollabsio/openclaw-browser:latest
+    container_name: openclaw-browser-1
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Etc/UTC
+      CHROME_CLI: "--remote-debugging-port=9222"
+      # >>> Ajustes criticos <<<
+      GATEWAY_URL: "ws://openclaw:18789"
+      SELKIES_MASTER_TOKEN: "a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6"
+    volumes:
+      - browser-data:/config
+    shm_size: 2g
+    networks:
+      - openclaw-net
+    restart: unless-stopped
 
 volumes:
   openclaw-data:
+  browser-data:
 
+networks:
+  openclaw-net:
+    driver: bridge
