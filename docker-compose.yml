@@ -1,7 +1,9 @@
-  openclaw:
+services:
+  openclaw-web:
     build: .
     container_name: openclaw-web
     restart: always
+    # Comando corrigido para evitar o erro de setup e argumentos
     command: ["gateway", "--mode", "local", "--allow-unconfigured"]
     environment:
       - NODE_OPTIONS=--dns-result-order=ipv4first
@@ -15,3 +17,11 @@
       - "18792:18791"
     depends_on:
       - browser
+
+  browser:
+    image: nginx:alpine
+    container_name: browser
+    restart: always
+
+volumes:
+  openclaw_data:
