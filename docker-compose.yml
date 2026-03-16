@@ -1,28 +1,43 @@
-version: "3.9"
+version: "3.8"
 
 services:
-  browser:
-    image: nginx:alpine
-    container_name: browser-stub
-    command: ["sh", "-c", "echo 'stub browser service' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"]
-    ports:
-      - "8888:80"
-
   openclaw:
     image: coollabsio/openclaw:latest
-    container_name: openclaw-web
-    restart: unless-stopped
-    environment:
-      MODELS_CONFIG: /etc/openclaw/modelsConfig.json
-      OPENCLAW_GATEWAY_TOKEN: 1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95
-      OLLAMA_BASE_URL: http://12.0.0.1:8000
-      LLM_TIMEOUT: 120
-      REQUEST_TIMEOUT: 120
-    volumes:
-      - ./openclaw.json:/data/.openclaw/openclaw.json
-      - ./openclaw-data:/data
-      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: openclaw
     ports:
-      - "3100:8080"    # interface principal (externo 3100 ? interno 8080)
-      - "18792:18791"  # browser control / WebSocket (externo 18792 ? interno 18791)
-      - "18800:18789"  # gateway (externo 18800 ? interno 18789)
+      - "${PORT:-3100}:${PORT:-8080}"
+    environment:
+      -OLLAMA_BASE_URL: http://127.0.0.1:8000
+      - OPENCLAW_PRIMARY_MODEL=mistral:7b-instruct-v0.3-q4_K_M
+      - OPENCLAW_GATEWAY_TOKEN=1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95
+      # Auth
+      - AUTH_USERNAME=${AUTH_USERNAME:-admin}
+      - AUTH_PASSWORD=${AUTH_PASSWORD}
+      # Browser sidecar
+      - BROWSER_CDP_URL=http://browser:9223
+      - BROWSER_DEFAULT_PROFILE=openclaw
+      - BROWSER_EVALUATE_ENABLED=true
+    volumes:
+      - openclaw-data:/data
+      # Monta seu JSON custom direto no /app/config
+      - ./openclaw.json:/app/config/openclaw.json
+    depends_on:
+      - browser
+    restart: unless-stopped
+
+  browser:
+    image: coollabsio/openclaw-browser:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - CHROME_CLI=--remote-debugging-port=9222
+    volumes:
+      - browser-data:/config
+    shm_size: 2g
+    restart: unless-stopped
+
+volumes:
+  openclaw-data:
+  browser-data:
+terno 18789)

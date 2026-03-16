@@ -19,6 +19,9 @@
         "baseUrl": "http://192.168.100.105:3100",
         "apiKey": "local_no_key",
         "api": "openai-chat",
+        "options": {
+          "requestTimeoutMs": 300000
+        },
         "models": [
           {
             "id": "mistral:7b-instruct-v0.3-q4_K_M",
@@ -26,7 +29,8 @@
             "reasoning": false,
             "input": ["text"],
             "contextWindow": 16000,
-            "maxTokens": 1024
+            "maxTokens": 1024,
+            "streaming": false
           },
           {
             "id": "phi",
@@ -51,6 +55,9 @@
         "remote-pc-105/mistral:7b-instruct-v0.3-q4_K_M": {
           "alias": "local",
           "streaming": false
+        },
+        "remote-pc-105/phi": {
+          "alias": "light"
         }
       },
       "workspace": "/data/workspace",
@@ -84,6 +91,10 @@
     "auth": {
       "mode": "token",
       "token": "1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95"
+    },
+    "timeouts": {
+      "LLM_TIMEOUT": 300,
+      "REQUEST_TIMEOUT": 300
     }
   },
   "hooks": {
