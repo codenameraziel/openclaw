@@ -7,16 +7,16 @@ services:
     ports:
       - "${PORT:-3100}:${PORT:-8080}"
     environment:
-      -OLLAMA_BASE_URL: http://127.0.0.1:8000
-      - OPENCLAW_PRIMARY_MODEL=mistral:7b-instruct-v0.3-q4_K_M
-      - OPENCLAW_GATEWAY_TOKEN=1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95
+      # Provider (Ollama local ou outro)
+      OPENCLAW_PRIMARY_MODEL: "llama2:7b"
+      OPENCLAW_GATEWAY_TOKEN: "${OPENCLAW_GATEWAY_TOKEN}"
       # Auth
-      - AUTH_USERNAME=${AUTH_USERNAME:-admin}
-      - AUTH_PASSWORD=${AUTH_PASSWORD}
+      AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
+      AUTH_PASSWORD: "${AUTH_PASSWORD}"
       # Browser sidecar
-      - BROWSER_CDP_URL=http://browser:9223
-      - BROWSER_DEFAULT_PROFILE=openclaw
-      - BROWSER_EVALUATE_ENABLED=true
+      BROWSER_CDP_URL: "http://browser:9223"
+      BROWSER_DEFAULT_PROFILE: "openclaw"
+      BROWSER_EVALUATE_ENABLED: "true"
     volumes:
       - openclaw-data:/data
       # Monta seu JSON custom direto no /app/config
@@ -28,10 +28,10 @@ services:
   browser:
     image: coollabsio/openclaw-browser:latest
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-      - CHROME_CLI=--remote-debugging-port=9222
+      PUID: 1000
+      PGID: 1000
+      TZ: Etc/UTC
+      CHROME_CLI: "--remote-debugging-port=9222"
     volumes:
       - browser-data:/config
     shm_size: 2g
@@ -40,4 +40,3 @@ services:
 volumes:
   openclaw-data:
   browser-data:
-terno 18789)
