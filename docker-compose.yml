@@ -8,8 +8,8 @@ services:
       - "${PORT:-3100}:${PORT:-8080}"
     environment:
       # Provider (Ollama local ou outro)
-      OPENCLAW_PRIMARY_MODEL: "llama2:7b"
-      OPENCLAW_GATEWAY_TOKEN: "${OPENCLAW_GATEWAY_TOKEN}"
+      OPENCLAW_PRIMARY_MODEL: "mistral:7b-instruct-v0.3-q4_K_M"
+      OPENCLAW_GATEWAY_TOKEN: "1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95"
       # Auth
       AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
       AUTH_PASSWORD: "${AUTH_PASSWORD}"
