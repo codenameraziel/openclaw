@@ -5,7 +5,7 @@ services:
     image: coollabsio/openclaw:latest
     container_name: openclaw
     ports:
-      - "${PORT:-3100}:${PORT:-8080}"
+      - "18791:18791"   # expõe apenas o gateway
     environment:
       # Provider local (Ollama)
       OLLAMA_BASE_URL: "http://127.0.0.1:8000"
@@ -14,7 +14,7 @@ services:
       # Auth
       AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
       AUTH_PASSWORD: "${AUTH_PASSWORD}"
-      # Browser sidecar
+      # Browser sidecar (opcional, se precisar de automação web)
       BROWSER_CDP_URL: "http://browser:9223"
       BROWSER_DEFAULT_PROFILE: "openclaw"
       BROWSER_EVALUATE_ENABLED: "true"

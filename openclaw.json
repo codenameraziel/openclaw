@@ -1,4 +1,4 @@
-{{
+{
   "meta": {
     "lastTouchedVersion": "2026.3.8",
     "lastTouchedAt": "2026-03-16T01:06:35.850Z"
@@ -77,7 +77,10 @@
     "port": 18791,
     "mode": "local",
     "bind": "0.0.0.0",
-    "trustedProxies": ["0.0.0.0/0"],
+    "trustedProxies": [
+      "0.0.0.0/0",
+      "192.168.100.0/24"
+    ],
     "controlUi": {
       "enabled": true,
       "allowInsecureAuth": true,
@@ -85,7 +88,7 @@
       "allowedOrigins": [
         "http://192.168.100.105:18791",
         "http://127.0.0.1:18791",
-        "http://localhost:18791"
+        "http://localhost:18791",
       ]
     },
     "auth": {
