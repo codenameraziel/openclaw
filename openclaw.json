@@ -1,44 +1,19 @@
 {
-  "meta": {
-    "lastTouchedVersion": "2026.3.8",
-    "lastTouchedAt": "2026-03-16T01:06:35.850Z"
-  },
-  "wizard": {
-    "lastRunAt": "2026-03-16T01:06:35.843Z",
-    "lastRunVersion": "2026.3.8",
-    "lastRunCommand": "doctor",
-    "lastRunMode": "local"
-  },
-  "update": {
-    "checkOnStart": false
-  },
   "models": {
     "mode": "merge",
     "providers": {
       "remote-pc-105": {
-        "baseUrl": "http://127.0.0.1:8000",
+        "baseUrl": "http://ollama-proxy:8000",
         "apiKey": "local_no_key",
-        "api": "openai-chat",
-        "options": {
-          "requestTimeoutMs": 300000
-        },
+        "api": "ollama",
         "models": [
           {
             "id": "mistral:7b-instruct-v0.3-q4_K_M",
-            "name": "Mistral 7B (Network)",
-            "reasoning": false,
-            "input": ["text"],
-            "contextWindow": 16000,
-            "maxTokens": 1024,
-            "streaming": false
+            "name": "Mistral 7B"
           },
           {
             "id": "phi",
-            "name": "phi-2 (Lightweight)",
-            "reasoning": false,
-            "input": ["text"],
-            "contextWindow": 4096,
-            "maxTokens": 512
+            "name": "phi-2"
           }
         ]
       }
@@ -47,34 +22,13 @@
   "agents": {
     "defaults": {
       "timeoutSeconds": 600,
-      "maxRetries": 3,
       "model": {
         "primary": "remote-pc-105/mistral:7b-instruct-v0.3-q4_K_M"
-      },
-      "models": {
-        "remote-pc-105/mistral:7b-instruct-v0.3-q4_K_M": {
-          "alias": "local",
-          "streaming": false
-        },
-        "remote-pc-105/phi": {
-          "alias": "light"
-        }
-      },
-      "workspace": "/data/workspace",
-      "compaction": {
-        "mode": "safeguard"
-      },
-      "maxConcurrent": 1,
-      "subagents": {
-        "maxConcurrent": 2
       }
     }
   },
-  "tools": {
-    "profile": "coding"
-  },
   "gateway": {
-    "port": 18791,
+    "port": 18789,
     "mode": "local",
     "bind": "0.0.0.0",
     "trustedProxies": [
@@ -83,30 +37,15 @@
     ],
     "controlUi": {
       "enabled": true,
-      "allowInsecureAuth": true,
-      "dangerouslyDisableDeviceAuth": true,
       "allowedOrigins": [
-        "http://192.168.100.105:18791",
-        "http://127.0.0.1:18791",
-        "http://localhost:18791",
+        "http://192.168.100.105:8070",
+        "http://127.0.0.1:8070",
+        "http://localhost:8070"
       ]
     },
     "auth": {
       "mode": "token",
       "token": "a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6"
-    },
-    "timeouts": {
-      "LLM_TIMEOUT": 300,
-      "REQUEST_TIMEOUT": 300
-    }
-  },
-  "hooks": {
-    "internal": {
-      "enabled": true,
-      "entries": {
-        "command-logger": { "enabled": false },
-        "session-memory": { "enabled": true }
-      }
     }
   }
 }
