@@ -15,7 +15,7 @@ services:
       # Auth
       AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
       AUTH_PASSWORD: "${AUTH_PASSWORD}"
-      # Browser sidecar (opcional, se precisar de automacao web)
+      # Browser sidecar (opcional)
       BROWSER_CDP_URL: "http://browser:9223"
       BROWSER_DEFAULT_PROFILE: "openclaw"
       BROWSER_EVALUATE_ENABLED: "true"
@@ -36,7 +36,7 @@ services:
       PGID: 1000
       TZ: Etc/UTC
       CHROME_CLI: "--remote-debugging-port=9222"
-      # >>> Ajustes criticos <<<
+      # >>> Ajustes críticos <<<
       GATEWAY_URL: "ws://openclaw:18789"
       SELKIES_MASTER_TOKEN: "a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6"
     volumes:
