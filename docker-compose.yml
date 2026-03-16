@@ -5,7 +5,7 @@ services:
     image: coollabsio/openclaw:latest
     container_name: openclaw
     ports:
-      - "18791:18791"   # expõe apenas o gateway
+      - "18791:18791"   # expoe apenas o gateway
     environment:
       # Provider local (Ollama)
       OLLAMA_BASE_URL: "http://127.0.0.1:8000"
