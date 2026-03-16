@@ -1,21 +1,15 @@
-FROM coollabsio/openclaw:latest
+FROM ghcr.io/openclaw/openclaw:latest
 
 USER root
 
-# Cria os diretórios esperados pelo OpenClaw e garante permissões
-RUN mkdir -p /data/npm-global /data/uv /data/go /data/workspace /data/.openclaw \
+# Cria diretórios e garante permissões para evitar erro de "Is a Directory"
+RUN mkdir -p /data/workspace /data/.openclaw \
     && chmod -R 777 /data
 
-# Instala utilitários úteis para debug e manutenção
+# Utilidades para o seu i5 respirar melhor
 RUN apt-get update && apt-get install -y \
-    nano \
     curl \
-    wget \
-    less \
-    vim \
     iputils-ping \
-    net-tools \
-    htop \
     && rm -rf /var/lib/apt/lists/*
 
-# Mantém o container rodando como root para evitar problemas de permissão
+ENTRYPOINT ["openclaw", "gateway", "start"]

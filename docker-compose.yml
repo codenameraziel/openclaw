@@ -1,22 +1,15 @@
 services:
   openclaw:
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: openclaw-web
     restart: always
     environment:
-      MODELS_CONFIG: /etc/openclaw/modelsConfig.json
-      OPENCLAW_GATEWAY_TOKEN: 1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95
-      OLLAMA_BASE_URL: http://ollama-proxy:8000
-      LLM_TIMEOUT: 120
-      REQUEST_TIMEOUT: 120
+      - NODE_OPTIONS=--dns-result-order=ipv4first
+      - OPENCLAW_GATEWAY_TOKEN=1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95
+      - LLM_TIMEOUT=600
     volumes:
-      - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
-      - ./openclaw.json:/data/.openclaw/openclaw.json:ro   # <-- monta o JSON corrigido
-      - openclaw_logs:/var/log/openclaw
+      - ./openclaw.json:/data/.openclaw/openclaw.json
       - ./openclaw-data:/data
-      - ./openclaw-config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "3100:8080"
@@ -30,4 +23,4 @@ services:
     restart: always
 
 volumes:
-  openclaw_logs:
+  openclaw_data:
