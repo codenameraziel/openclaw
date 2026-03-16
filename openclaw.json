@@ -1,47 +1,125 @@
 {
-  "gateway": {
-    "port": 18789,
-    "mode": "local",
-    "auth": {
-      "mode": "token",
-      "token": "a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6"
-    },
-    "controlUi": {
-      "allowInsecureAuth": true,
-      "enabled": true,
-      "allowedOrigins": [
-        "http://192.168.100.105:3100",
-        "http://localhost:3100",
-        "http://127.0.0.1:3100"
-      ]
-    },
-    "bind": "0.0.0.0",
-    "trustedProxies": [
-      "192.168.100.0/24",
-      "127.0.0.1/32"
-    ]
+  "meta": {
+    "lastTouchedVersion": "2026.3.8",
+    "lastTouchedAt": "2026-03-15T22:15:48.885Z"
   },
-  "agents": {
-    "defaults": {
-      "workspace": "/data/workspace",
-      "model": {
-        "primary": "ollama/llama3.3"
-      }
-    }
+  "wizard": {
+    "lastRunAt": "2026-03-15T22:00:30.987Z",
+    "lastRunVersion": "2026.3.8",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "update": {
+    "checkOnStart": false
   },
   "models": {
+    "mode": "merge",
     "providers": {
-      "ollama": {
+      "custom-127-0-0-1-8000": {
+        "baseUrl": "http://127.0.0.1:8000/v1/",
+        "apiKey": "local_no_key",
         "api": "openai-completions",
-        "baseUrl": "http://ollama-proxy:8000/v1",
         "models": [
           {
-            "id": "llama3.3",
-            "name": "Llama 3.3",
-            "contextWindow": 128000
+            "id": "llama2:7b",
+            "name": "llama2 7B (Custom Provider)",
+            "reasoning": false,
+            "input": ["text"],
+            "contextWindow": 16000,
+            "maxTokens": 4096
+          },
+          {
+            "id": "phi",
+            "name": "phi-2 (Custom Provider)",
+            "reasoning": false,
+            "input": ["text"],
+            "contextWindow": 4096,
+            "maxTokens": 1024
           }
         ]
       }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "custom-127-0-0-1-8000/llama2:7b"
+      },
+      "models": {
+        "custom-127-0-0-1-8000/llama2:7b": {
+          "alias": "local"
+        },
+        "custom-127-0-0-1-8000/phi": {
+          "alias": "light"
+        }
+      },
+      "workspace": "/data/.openclaw/workspace",
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    }
+  },
+  "tools": {
+    "profile": "coding"
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "command-logger": { "enabled": true },
+        "session-memory": { "enabled": true }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "controlUi": {
+      "allowInsecureAuth": true,
+      "dangerouslyDisableDeviceAuth": true
+    },
+    "auth": {
+      "mode": "token",
+      "token": "1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "remote": {
+      "token": "1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95"
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "contacts.add",
+        "calendar.add",
+        "reminders.add",
+        "sms.send"
+      ]
+    },
+    "timeouts": {
+      "LLM_TIMEOUT": 300,
+      "REQUEST_TIMEOUT": 300
     }
   }
 }
