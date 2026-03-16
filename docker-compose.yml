@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       MODELS_CONFIG: /etc/openclaw/modelsConfig.json
-      OPENCLAW_GATEWAY_TOKEN: a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6
+      OPENCLAW_GATEWAY_TOKEN: 1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95
       OLLAMA_BASE_URL: http://ollama-proxy:8000
       LLM_TIMEOUT: 120
       REQUEST_TIMEOUT: 120
