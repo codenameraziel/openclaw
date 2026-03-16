@@ -2,7 +2,6 @@
     build: .
     container_name: openclaw-web
     restart: always
-    # O comando abaixo força o modo local e ignora a falta de setup inicial
     command: ["gateway", "--mode", "local", "--allow-unconfigured"]
     environment:
       - NODE_OPTIONS=--dns-result-order=ipv4first
