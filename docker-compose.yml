@@ -14,7 +14,7 @@ services:
       # Auth
       AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
       AUTH_PASSWORD: "${AUTH_PASSWORD}"
-      # Browser sidecar (opcional, se precisar de automação web)
+      # Browser sidecar (opcional, se precisar de automaçao web)
       BROWSER_CDP_URL: "http://browser:9223"
       BROWSER_DEFAULT_PROFILE: "openclaw"
       BROWSER_EVALUATE_ENABLED: "true"
