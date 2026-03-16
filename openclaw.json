@@ -40,7 +40,8 @@
       "allowedOrigins": [
         "http://192.168.100.105:8070",
         "http://127.0.0.1:8070",
-        "http://localhost:8070"
+        "http://localhost:8070",
+        "https://openclaw.teccryptor3dprint.dpdns.org"
       ]
     },
     "auth": {
