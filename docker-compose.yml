@@ -1,19 +1,28 @@
+version: "3.9"
+
 services:
-  openclaw-web:
-    image: ghcr.io/openclaw/openclaw:latest
-    restart: always
-    command: ["gateway", "--mode", "local", "--allow-unconfigured"]
+  browser:
+    image: nginx:alpine
+    container_name: browser-stub
+    command: ["sh", "-c", "echo 'stub browser service' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"]
+    ports:
+      - "8888:80"
+
+  openclaw:
+    image: coollabsio/openclaw:latest
+    container_name: openclaw-web
+    restart: unless-stopped
     environment:
-      - NODE_OPTIONS=--dns-result-order=ipv4first
-      - OPENCLAW_GATEWAY_TOKEN=1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95
+      MODELS_CONFIG: /etc/openclaw/modelsConfig.json
+      OPENCLAW_GATEWAY_TOKEN: 1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95
+      OLLAMA_BASE_URL: http://12.0.0.1:8000
+      LLM_TIMEOUT: 120
+      REQUEST_TIMEOUT: 120
     volumes:
       - ./openclaw.json:/data/.openclaw/openclaw.json
       - ./openclaw-data:/data
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "3100:8080"
-      - "18792:18791"
-
-  browser:
-    image: nginx:alpine
-    restart: always
+      - "3100:8080"    # interface principal (externo 3100 ? interno 8080)
+      - "18792:18791"  # browser control / WebSocket (externo 18792 ? interno 18791)
+      - "18800:18789"  # gateway (externo 18800 ? interno 18789)
