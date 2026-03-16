@@ -16,7 +16,7 @@
     "mode": "merge",
     "providers": {
       "remote-pc-105": {
-        "baseUrl": "http://192.168.100.105:3100",
+        "baseUrl": "http://127.0.0.1:8000",
         "apiKey": "local_no_key",
         "api": "openai-chat",
         "options": {
