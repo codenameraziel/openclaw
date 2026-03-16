@@ -5,11 +5,12 @@ services:
     image: coollabsio/openclaw:latest
     container_name: openclaw
     ports:
-      - "${PORT:-3100}:${PORT:-8080}"
+      - "${PORT:-8080}:${PORT:-8080}"
     environment:
-      # Provider (Ollama local ou outro)
+      # Provider local (Ollama)
+      OLLAMA_BASE_URL: "http://127.0.0.1:8000"
       OPENCLAW_PRIMARY_MODEL: "mistral:7b-instruct-v0.3-q4_K_M"
-      OPENCLAW_GATEWAY_TOKEN: "1b18214257440a5acd3178e5d648e51b0b9bc3fb9afe0c95"
+      OPENCLAW_GATEWAY_TOKEN: "a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6"
       # Auth
       AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
       AUTH_PASSWORD: "${AUTH_PASSWORD}"
@@ -19,7 +20,6 @@ services:
       BROWSER_EVALUATE_ENABLED: "true"
     volumes:
       - openclaw-data:/data
-      # Monta seu JSON custom direto no /app/config
       - ./openclaw.json:/app/config/openclaw.json
     depends_on:
       - browser
