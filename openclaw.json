@@ -116,7 +116,7 @@
       "dangerouslyDisableDeviceAuth": true,
       "allowedOrigins": "http://192.168.100.105:8070, https://openclaw.teccryptor3dprint.dpdns.org"
     },
-    "trustedProxies": "0.0.0.0/24"
+    "trustedProxies": "0.0.0.0/0"
   },
   "meta": {
     "lastTouchedVersion": "2026.3.8",
