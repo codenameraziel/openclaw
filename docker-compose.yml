@@ -1,33 +1,21 @@
 version: "3.9"
 
 services:
-  browser:
-    image: nginx:alpine
-    container_name: browser-stub
-    command: ["sh", "-c", "echo 'stub browser service' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"]
-    ports:
-      - "8888:80"
-
   openclaw:
     image: coollabsio/openclaw:latest
-    container_name: openclaw-web
+    container_name: openclaw
     restart: unless-stopped
-    environment:
-      OPENCLAW_GATEWAY_TOKEN: b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2
-      OLLAMA_BASE_URL: http://192.168.100.105:8000/v1
-      gateway.controlUi.allowedOrigins: "https://openclaw.teccryptor3dprint.dpdns.org,http://192.168.100.105:8070,http://localhost:8070,http://127.0.0.1:8070"
-      gateway.trustedProxies: "192.168.100.0/24"
-      LLM_TIMEOUT: 120
-      REQUEST_TIMEOUT: 120
-    volumes:
-      - openclaw-data:/data
-      - ./logs:/tmp/openclaw
-      - ./openclaw:/home/openclaw/.openclaw   # pasta personalizada
     ports:
-      - "3100:8080"
-      - "18792:18791"
-      - "18800:18789"
-
-volumes:
-  openclaw-data:
-    driver: local
+      - "18789:18789"   # Porta do gateway definida no openclaw.json
+    volumes:
+      - ./openclaw.json:/data/openclaw.json:ro
+      - ./device.json:/data/device.json:ro
+      - ./jobs.json:/data/jobs.json:rw
+      - ./agents:/data/agents:rw
+      - ./canvas:/data/canvas:rw
+    env_file:
+      - .env
+    environment:
+      - LLM_TIMEOUT=120
+      - REQUEST_TIMEOUT=120
+    command: ["onboard"]
