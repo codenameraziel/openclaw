@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     ports:
       - "18789:18789"   # Gateway (externo 18789 ? interno 18789)
-      - "8070:8070"     # Painel web via nginx (ajustado)
+      - "8070:8080"     # Painel web via nginx (ajustado)
     volumes:
       - ./openclaw.json:/data/openclaw.json:ro
       - ./device.json:/data/device.json:ro
