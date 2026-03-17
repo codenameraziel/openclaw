@@ -22,10 +22,11 @@ services:
     volumes:
       - openclaw-data:/data
       - ./logs:/tmp/openclaw
+      - ./openclaw:/home/openclaw/.openclaw   # pasta personalizada
     ports:
-      - "3100:8080"    # interface principal
-      - "18792:18791"  # browser control / WebSocket
-      - "18800:18789"  # gateway
+      - "3100:8080"
+      - "18792:18791"
+      - "18800:18789"
 
 volumes:
   openclaw-data:
