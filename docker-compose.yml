@@ -6,22 +6,22 @@ services:
     container_name: openclaw
     ports:
       - "8070:8080"     # UI
-      - "18789:18789"   # Gateway API
+      - "18789:18789"   # Gateway
     environment:
-      OPENCLAW_PRIMARY_MODEL: "ollama/llama3:8b"
-      OLLAMA_BASE_URL: "http://http://ollama-proxy:8000"
+      # Provider local (Ollama)
+      OLLAMA_BASE_URL: "http://192.168.100.105:8000/v1"
       OPENCLAW_GATEWAY_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
+      # Auth
       AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
       AUTH_PASSWORD: "${AUTH_PASSWORD}"
-      BROWSER_CDP_URL: "http://browser:9222"
+      # Browser sidecar (opcional)
+      BROWSER_CDP_URL: "http://browser:9223"
       BROWSER_DEFAULT_PROFILE: "openclaw"
       BROWSER_EVALUATE_ENABLED: "true"
-      LLM_TIMEOUT: 300
-      REQUEST_TIMEOUT: 300
     volumes:
       - openclaw-data:/data
       - ./openclaw.json:/app/config/openclaw.json
-      - ./openclaw:/data/.openclaw
+      - ./openclaw:/home/openclaw/.openclaw
     depends_on:
       - browser
     networks:
@@ -36,6 +36,7 @@ services:
       PGID: 1000
       TZ: Etc/UTC
       CHROME_CLI: "--remote-debugging-port=9222"
+      # >>> Ajustes criticos <<<
       GATEWAY_URL: "ws://openclaw:18789"
       SELKIES_MASTER_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
     volumes:
