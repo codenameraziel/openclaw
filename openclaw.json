@@ -1,35 +1,29 @@
 {
-  "agents": {
-    "defaults": {
-      "model": {
-        "primary": "ollama/llama3:8b"
-      },
-      "models": {
-        "ollama/llama3:8b": {
-          "alias": "ollama"
-        }
-      },
-      "memorySearch": {
-        "enabled": false
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "remote-pc-105": {
+        "baseUrl": "http://ollama-proxy:8000",
+        "apiKey": "local_no_key",
+        "api": "ollama",
+        "models": [
+          {
+            "id": "mistral:7b-instruct-v0.3-q4_K_M",
+            "name": "Mistral 7B"
+          },
+          {
+            "id": "phi",
+            "name": "phi-2"
+          }
+        ]
       }
     }
   },
-  "models": {
-    "mode": "replace",
-    "providers": {
-      "ollama": {
-        "baseUrl": "http://ollama:11434",
-        "apiKey": "ollama_no_key",
-        "api": "ollama",
-        "timeout": 300,
-        "models": [
-          {
-            "id": "llama3:8b",
-            "name": "llama3:8b (Ollama)",
-            "contextWindow": 8192,
-            "maxTokens": 2048
-          }
-        ]
+  "agents": {
+    "defaults": {
+      "timeoutSeconds": 600,
+      "model": {
+        "primary": "remote-pc-105/mistral:7b-instruct-v0.3-q4_K_M"
       }
     }
   },
@@ -37,16 +31,21 @@
     "port": 18789,
     "mode": "local",
     "bind": "0.0.0.0",
-    "timeout": 300,
+    "trustedProxies": [
+      "0.0.0.0/0",
+      "192.168.100.0/24"
+    ],
+    "controlUi": {
+      "enabled": true,
+      "allowedOrigins": [
+        "http://192.168.100.105:8070",
+        "http://127.0.0.1:8070",
+        "http://localhost:8070"
+      ]
+    },
     "auth": {
       "mode": "token",
-      "token": "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
-    },
-    "controlUi": {
-      "allowInsecureAuth": false,
-      "dangerouslyDisableDeviceAuth": false,
-      "allowedOrigins": "http://192.168.100.105:8070, https://openclaw.teccryptor3dprint.dpdns.org"
-    },
-    "trustedProxies": "192.168.100.0/24"
+      "token": "a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6"
+    }
   }
 }
