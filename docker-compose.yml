@@ -57,6 +57,17 @@ services:
       - openclaw-net
     restart: unless-stopped
 
+  ollama-proxy:
+    build: ./proxy
+    container_name: ollama-proxy
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ollama
+    networks:
+      - openclaw-net
+    restart: unless-stopped
+
 volumes:
   openclaw-data:
   browser-data:
@@ -65,3 +76,4 @@ volumes:
 networks:
   openclaw-net:
     driver: bridge
+
