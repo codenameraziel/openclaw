@@ -1,40 +1,34 @@
-{
+{{
   "agents": {
     "defaults": {
       "model": {
-        "primary": "custom-127-0-0-1-8000/llama3:8b"
+        "primary": "localai/llama-sentient-3.2-3b-instruct"
       },
       "models": {
-        "custom-127-0-0-1-8000/llama3:8b": {
+        "localai/llama-sentient-3.2-3b-instruct": {
           "alias": "local"
         }
       },
       "workspace": "/data/.openclaw/workspace",
-      "compaction": {
-        "mode": "safeguard"
-      },
+      "compaction": { "mode": "safeguard" },
       "maxConcurrent": 4,
-      "subagents": {
-        "maxConcurrent": 8
-      },
-      "memorySearch": {
-        "enabled": false
-      }
+      "subagents": { "maxConcurrent": 8 },
+      "memorySearch": { "enabled": false }
     }
   },
   "models": {
     "mode": "merge",
     "providers": {
-      "custom-127-0-0-1-8000": {
-        "baseUrl": "http://127.0.0.1:8000/v1",
+      "localai": {
+        "baseUrl": "http://127.0.0.1:8793/v1",
         "apiKey": "local_no_key",
         "api": "openai-completions",
         "models": [
           {
-            "id": "llama3:8b",
-            "name": "llama3:8b (via proxy)",
-            "contextWindow": 16000,
-            "maxTokens": 4096
+            "id": "llama-sentient-3.2-3b-instruct",
+            "name": "llama-sentient-3.2-3b-instruct (LocalAI)",
+            "contextWindow": 8192,
+            "maxTokens": 2048
           }
         ]
       }
@@ -54,33 +48,5 @@
       "allowedOrigins": "http://192.168.100.105:8070, https://openclaw.teccryptor3dprint.dpdns.org"
     },
     "trustedProxies": "0.0.0.0/0"
-  },
-  "tools": {
-    "profile": "coding",
-    "web": {
-      "search": {
-        "enabled": true,
-        "provider": "gemini",
-        "gemini": {
-          "apiKey": "AIzaSyArtCvweWxfP0_zYWMC_7mYES-X5s6EkIA"
-        }
-      }
-    }
-  },
-  "hooks": {
-    "internal": {
-      "enabled": true,
-      "entries": {
-        "command-logger": {
-          "enabled": true
-        },
-        "session-memory": {
-          "enabled": true
-        }
-      }
-    }
-  },
-  "update": {
-    "checkOnStart": false
   }
 }
