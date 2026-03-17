@@ -13,15 +13,14 @@ services:
     container_name: openclaw-web
     restart: unless-stopped
     environment:
-      MODELS_CONFIG: /etc/openclaw/modelsConfig.json
-      OPENCLAW_GATEWAY_TOKEN: a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6
-      OLLAMA_BASE_URL: http://ollama-proxy:8000
+      OPENCLAW_GATEWAY_TOKEN: b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2
+      OLLAMA_BASE_URL: http://192.168.100.105:8000/v1
       gateway.controlUi.allowedOrigins: "https://openclaw.teccryptor3dprint.dpdns.org,http://192.168.100.105:8070,http://localhos:8070,http/127.0.0.1:8070"
       gateway.trustedProxies: "0.0.0.0/24"
       LLM_TIMEOUT: 120
       REQUEST_TIMEOUT: 120
     volumes:
-      - ./modelsConfig.json:/etc/openclaw/modelsConfig.json:ro
+      - openclaw-data:/data
       - ./logs:/tmp/openclaw
     ports:
       - "8070:8080"    # interface principal (externo 3100 ? interno 8080)
