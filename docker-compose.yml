@@ -17,8 +17,6 @@ services:
     env_file:
       - .env
     environment:
-      gateway.controlUi.allowedOrigins: "https://openclaw.teccryptor3dprint.dpdns.org,http://192.168.100.105:8070,http://localhost:8070,http://127.0.0.1"
-      gateway.trustedProxies: "0.0.0.0/24"
       - LLM_TIMEOUT=120
       - REQUEST_TIMEOUT=120
     command: ["onboard"]
