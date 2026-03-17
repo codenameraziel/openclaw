@@ -1,32 +1,27 @@
-{{
+{
   "agents": {
     "defaults": {
       "model": {
-        "primary": "localai/llama-sentient-3.2-3b-instruct"
+        "primary": "ollama/llama3:8b"
       },
       "models": {
-        "localai/llama-sentient-3.2-3b-instruct": {
-          "alias": "local"
+        "ollama/llama3:8b": {
+          "alias": "ollama"
         }
-      },
-      "workspace": "/data/.openclaw/workspace",
-      "compaction": { "mode": "safeguard" },
-      "maxConcurrent": 4,
-      "subagents": { "maxConcurrent": 8 },
-      "memorySearch": { "enabled": false }
+      }
     }
   },
   "models": {
-    "mode": "merge",
+    "mode": "replace",
     "providers": {
-      "localai": {
-        "baseUrl": "http://127.0.0.1:8793/v1",
-        "apiKey": "local_no_key",
+      "ollama": {
+        "baseUrl": "http://192.168.100.105:8000/v1",
+        "apiKey": "ollama_no_key",
         "api": "openai-completions",
         "models": [
           {
-            "id": "llama-sentient-3.2-3b-instruct",
-            "name": "llama-sentient-3.2-3b-instruct (LocalAI)",
+            "id": "llama3:8b",
+            "name": "llama3:8b (Ollama)",
             "contextWindow": 8192,
             "maxTokens": 2048
           }
@@ -40,13 +35,13 @@
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "a3f9c8d7e2b14f0c9d8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6"
+      "token": "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
     },
     "controlUi": {
       "allowInsecureAuth": true,
       "dangerouslyDisableDeviceAuth": true,
       "allowedOrigins": "http://192.168.100.105:8070, https://openclaw.teccryptor3dprint.dpdns.org"
     },
-    "trustedProxies": "0.0.0.0/0"
+    "trustedProxies": "192.168.100.0/24"
   }
 }
