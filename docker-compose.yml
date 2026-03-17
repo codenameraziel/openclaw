@@ -9,7 +9,7 @@ services:
       - "18789:18789"   # Gateway
     environment:
       # Provider local (Ollama)
-      OLLAMA_BASE_URL: "http://127.0.0.1:8000"
+      OLLAMA_BASE_URL: "http://192.168.100.105:800/v1"
       OPENCLAW_PRIMARY_MODEL: "llama3:8b"
       OPENCLAW_GATEWAY_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
       # Auth
