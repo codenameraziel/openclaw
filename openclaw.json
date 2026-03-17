@@ -14,8 +14,8 @@
         "api": "openai-completions",
         "models": [
           {
-            "id": "llama3:8b",
-            "name": "llama3:8b (Custom Provider)",
+            "id": "anthropic/llama3:8b",
+            "name": "Anthropic Llama3:8b",
             "reasoning": false,
             "input": ["text"],
             "cost": {
@@ -34,10 +34,10 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "custom-192-168-100-105-8000/llama3:8b"
+        "primary": "custom-192-168-100-105-8000/anthropic/llama3:8b"
       },
       "models": {
-        "custom-192-168-100-105-8000/llama3:8b": {
+        "custom-192-168-100-105-8000/anthropic/llama3:8b": {
           "alias": "local"
         }
       },
@@ -48,6 +48,9 @@
       "maxConcurrent": 4,
       "subagents": {
         "maxConcurrent": 8
+      },
+      "memorySearch": {
+        "enabled": false
       }
     }
   },
