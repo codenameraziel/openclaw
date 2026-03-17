@@ -21,7 +21,7 @@ services:
     volumes:
       - openclaw-data:/data
       - ./openclaw.json:/app/config/openclaw.json
-      - ./openclaw:/home/openclaw/.openclaw
+       - ./openclaw:/data/.openclaw
     depends_on:
       - browser
     networks:
