@@ -21,6 +21,7 @@
         "baseUrl": "http://ollama:11434",
         "apiKey": "ollama_no_key",
         "api": "ollama",
+        "timeout": 300,
         "models": [
           {
             "id": "llama3:8b",
@@ -36,6 +37,7 @@
     "port": 18789,
     "mode": "local",
     "bind": "0.0.0.0",
+    "timeout": 300,
     "auth": {
       "mode": "token",
       "token": "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
