@@ -6,8 +6,8 @@ services:
     container_name: openclaw
     restart: unless-stopped
     ports:
-      - "18789:18789"   # Gateway
-      - "8070:8080"     # Painel web via nginx (externo 8070 ? interno 8080)
+      - "18789:18789"   # Gateway WebSocket
+      - "8070:8080"     # Painel web (externo 8070 ? interno 8080)
     volumes:
       - ./openclaw.json:/data/openclaw.json:ro
       - ./device.json:/data/device.json:ro
@@ -29,4 +29,3 @@ services:
              nginx -g 'daemon off;'"
     expose:
       - "80"
-
