@@ -16,8 +16,8 @@ services:
       BROWSER_CDP_URL: "http://browser:9222"
       BROWSER_DEFAULT_PROFILE: "openclaw"
       BROWSER_EVALUATE_ENABLED: "true"
-      LLM_TIMEOUT: 120
-      REQUEST_TIMEOUT: 120
+      LLM_TIMEOUT: 300
+      REQUEST_TIMEOUT: 300
     volumes:
       - openclaw-data:/data
       - ./openclaw.json:/app/config/openclaw.json
