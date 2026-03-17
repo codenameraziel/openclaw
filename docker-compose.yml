@@ -6,8 +6,8 @@ services:
     container_name: openclaw
     restart: unless-stopped
     ports:
-      - "18789:18789"   # Gateway (externo 18789 ? interno 18789)
-      - "8070:8080"     # Painel web via nginx (ajustado)
+      - "18789:18789"   # Gateway
+      - "8070:8080"     # Painel web via nginx (externo 8070 ? interno 8080)
     volumes:
       - ./openclaw.json:/data/openclaw.json:ro
       - ./device.json:/data/device.json:ro
@@ -27,5 +27,6 @@ services:
     command: >
       sh -c "echo 'stub browser service' > /usr/share/nginx/html/index.html &&
              nginx -g 'daemon off;'"
-    ports:
-      - "8888:80"
+    expose:
+      - "80"
+
