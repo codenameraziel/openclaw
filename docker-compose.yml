@@ -1,31 +1,55 @@
-version: "3.9"
+version: "3.8"
 
 services:
   openclaw:
     image: coollabsio/openclaw:latest
     container_name: openclaw
-    restart: unless-stopped
     ports:
-      - "18789:18789"   # Gateway WebSocket
-      - "8070:8080"     # Painel web (externo 8070 ? interno 8080)
-    volumes:
-      - ./openclaw.json:/data/openclaw.json:ro
-      - ./device.json:/data/device.json:ro
-      - ./jobs.json:/data/jobs.json:rw
-      - ./agents:/data/agents:rw
-      - ./canvas:/data/canvas:rw
-    env_file:
-      - .env
+      - "8070:8080"     # UI
+      - "18789:18789"   # Gateway
     environment:
-      - LLM_TIMEOUT=120
-      - REQUEST_TIMEOUT=120
-    command: ["onboard"]
+      # Provider local (Ollama)
+      OLLAMA_BASE_URL: "http://127.0.0.1:8000"
+      OPENCLAW_PRIMARY_MODEL: "llama3:8b"
+      OPENCLAW_GATEWAY_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
+      # Auth
+      AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
+      AUTH_PASSWORD: "${AUTH_PASSWORD}"
+      # Browser sidecar (opcional)
+      BROWSER_CDP_URL: "http://browser:9223"
+      BROWSER_DEFAULT_PROFILE: "openclaw"
+      BROWSER_EVALUATE_ENABLED: "true"
+    volumes:
+      - openclaw-data:/data
+      - ./openclaw.json:/app/config/openclaw.json
+    depends_on:
+      - browser
+    networks:
+      - openclaw-net
+    restart: unless-stopped
 
   browser:
-    image: nginx:alpine
-    container_name: browser-stub
-    command: >
-      sh -c "echo 'stub browser service' > /usr/share/nginx/html/index.html &&
-             nginx -g 'daemon off;'"
-    expose:
-      - "80"
+    image: coollabsio/openclaw-browser:latest
+    container_name: openclaw-browser-1
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Etc/UTC
+      CHROME_CLI: "--remote-debugging-port=9222"
+      # >>> Ajustes criticos <<<
+      GATEWAY_URL: "ws://openclaw:18789"
+      SELKIES_MASTER_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
+    volumes:
+      - browser-data:/config
+    shm_size: 2g
+    networks:
+      - openclaw-net
+    restart: unless-stopped
+
+volumes:
+  openclaw-data:
+  browser-data:
+
+networks:
+  openclaw-net:
+    driver: bridge
