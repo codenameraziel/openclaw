@@ -15,7 +15,7 @@ services:
       BROWSER_CDP_URL: "http://browser:9222"
       BROWSER_DEFAULT_PROFILE: "openclaw"
       BROWSER_EVALUATE_ENABLED: "true"
-      OLLAMA_BASE_URL: "http://ollama:11434"   # aponta para o servico ollama
+      OLLAMA_BASE_URL: "http://ollama-proxy:8000"   # usa o proxy para falar com o Ollama
     volumes:
       - openclaw-data:/data
       - ./openclaw.json:/app/config/openclaw.json
@@ -23,6 +23,7 @@ services:
     depends_on:
       - browser
       - ollama
+      - ollama-proxy
     networks:
       - openclaw-net
     restart: unless-stopped
@@ -48,7 +49,18 @@ services:
     image: ollama/ollama:latest
     container_name: ollama
     ports:
-      - "11434:11434"   # expoe a API do Ollama
+      - "11434:11434"   # API nativa do Ollama
+    networks:
+      - openclaw-net
+    restart: unless-stopped
+
+  ollama-proxy:
+    image: ghcr.io/ollama/ollama-proxy:latest
+    container_name: ollama-proxy
+    environment:
+      OLLAMA_HOST: "http://ollama:11434"
+    ports:
+      - "8000:8000"     # proxy expõe API compatível
     networks:
       - openclaw-net
     restart: unless-stopped
