@@ -1,82 +1,16 @@
-version: "3.9"
-
+version: "3.7"
 services:
-  openclaw:
-    image: coollabsio/openclaw:latest
-    container_name: openclaw
-    ports:
-      - "8070:8080"     # UI
-      - "18789:18789"   # Gateway API
+  app_proxy:
     environment:
-      OPENCLAW_PRIMARY_MODEL: "ollama/llama3:8b"
-      OLLAMA_BASE_URL: "http://ollama-proxy:8000"
-      OPENCLAW_GATEWAY_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
-      AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
-      AUTH_PASSWORD: "${AUTH_PASSWORD}"
-      BROWSER_CDP_URL: "http://browser:9222"
-      BROWSER_DEFAULT_PROFILE: "openclaw"
-      BROWSER_EVALUATE_ENABLED: "true"
-      LLM_TIMEOUT: 300
-      REQUEST_TIMEOUT: 300
+      APP_HOST: openclaw_gateway_1
+      APP_PORT: 18789
+
+  gateway:
+    image: ghcr.io/getumbrel/openclaw-umbrel:2026.3.13@sha256:21697123f5dbc7aab2281281ba7a9432c2363a25b260cddbbef673af4e0b8eae
+    user: "1000:1000"
+    init: true
+    restart: on-failure
+    stop_grace_period: 1m
     volumes:
-      - openclaw-data:/data
-      - ./openclaw.json:/app/config/openclaw.json
-      - ./openclaw:/data/.openclaw
-    depends_on:
-      - browser
-      - ollama-proxy
-    networks:
-      - openclaw-net
-    restart: unless-stopped
-
-  browser:
-    image: coollabsio/openclaw-browser:latest
-    container_name: openclaw-browser-1
-    environment:
-      PUID: 1000
-      PGID: 1000
-      TZ: Etc/UTC
-      CHROME_CLI: "--remote-debugging-port=9222"
-      GATEWAY_URL: "ws://openclaw:18789"
-      SELKIES_MASTER_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
-    volumes:
-      - browser-data:/config
-    shm_size: 2g
-    networks:
-      - openclaw-net
-    restart: unless-stopped
-
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    ports:
-      - "11434:11434"
-    environment:
-      - OLLAMA_ORIGINS=*
-    volumes:
-      - ollama-data:/root/.ollama
-    networks:
-      - openclaw-net
-    restart: unless-stopped
-
-  ollama-proxy:
-    build: ./proxy
-    container_name: ollama-proxy
-    ports:
-      - "8000:8000"
-    depends_on:
-      - ollama
-    environment:
-      - OLLAMA_URL=http://ollama:11434/api/generate
-    networks:
-      - openclaw-net
-    restart: unless-stopped
-
-volumes:
-  openclaw-data:
-  browser-data:
-  ollama-data:
-
-networks:
-  openclaw-net:
-    driver: bridge
+      - ${APP_DATA_DIR}/data:/data
+      - ${APP_DATA_DIR}/data/linuxbrew:/home/linuxbrew
