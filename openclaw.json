@@ -2,26 +2,29 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "ollama/llama3:8b"
+        "primary": "proxy/llama3:8b"
       },
       "models": {
-        "ollama/llama3:8b": {
-          "alias": "ollama"
+        "proxy/llama3:8b": {
+          "alias": "proxy"
         }
+      },
+      "memorySearch": {
+        "enabled": false
       }
     }
   },
   "models": {
     "mode": "replace",
     "providers": {
-      "ollama": {
-        "baseUrl": "http://192.168.100.105:8000",
-        "apiKey": "ollama_no_key",
-        "api": "ollama",
+      "proxy": {
+        "baseUrl": "http://ollama-proxy:8000",
+        "apiKey": "proxy_no_key",
+        "api": "openai-responses",
         "models": [
           {
-            "id": "llama3:8b",
-            "name": "llama3:8b (Ollama)",
+            "id": "proxy/llama3:8b",
+            "name": "llama3:8b (via Proxy)",
             "contextWindow": 8192,
             "maxTokens": 2048
           }
@@ -46,7 +49,8 @@
       ]
     },
     "trustedProxies": [
-      "192.168.100.0/24"
+      "192.168.100.0/24",
+      "172.19.0.0/16"
     ]
   }
 }
