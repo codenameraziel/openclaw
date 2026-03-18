@@ -51,7 +51,7 @@ services:
     container_name: ollama
     ports:
       - "11434:11434"
-  environment:
+    environment:
       - OLLAMA_ORIGINS=*
     volumes:
       - ollama-data:/root/.ollama
