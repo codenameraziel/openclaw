@@ -15,12 +15,14 @@ services:
       BROWSER_CDP_URL: "http://browser:9222"
       BROWSER_DEFAULT_PROFILE: "openclaw"
       BROWSER_EVALUATE_ENABLED: "true"
+      OLLAMA_BASE_URL: "http://ollama:11434"   # aponta para o serviço ollama
     volumes:
       - openclaw-data:/data
       - ./openclaw.json:/app/config/openclaw.json
       - ./openclaw:/data/.openclaw
     depends_on:
       - browser
+      - ollama
     networks:
       - openclaw-net
     restart: unless-stopped
@@ -38,6 +40,15 @@ services:
     volumes:
       - browser-data:/config
     shm_size: 2g
+    networks:
+      - openclaw-net
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"   # expõe a API do Ollama
     networks:
       - openclaw-net
     restart: unless-stopped
