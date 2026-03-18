@@ -48,7 +48,7 @@ services:
     image: ollama/ollama:latest
     container_name: ollama
     ports:
-      - "11434:11434"   # expõe a API do Ollama
+      - "11434:11434"   # expoe a API do Ollama
     networks:
       - openclaw-net
     restart: unless-stopped
