@@ -21,7 +21,7 @@
     "providers": {
       "ollama": {
         "api": "ollama",
-        "baseUrl": "http://ollama-proxy:8000",
+        "baseUrl": "http://localhost:8000",
         "models": [
           {
             "id": "llama3:8b",
@@ -36,7 +36,7 @@
   "gateway": {
     "port": 18789,
     "mode": "local",
-    "bind": "lan",
+    "bind": "0.0.0.0",
     "auth": {
       "mode": "token",
       "token": "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
@@ -51,6 +51,7 @@
       "enabled": true
     },
     "trustedProxies": [
+      "127.0.0.1",
       "192.168.100.0/24"
     ]
   },
