@@ -55,7 +55,7 @@ services:
     restart: unless-stopped
 
   ollama-proxy:
-    image: ghcr.io/ollama/ollama-proxy:latest
+    build: ./proxy
     container_name: ollama-proxy
     environment:
       OLLAMA_HOST: "http://ollama:11434"
