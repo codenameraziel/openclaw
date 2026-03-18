@@ -1,80 +1,40 @@
 from fastapi import FastAPI, Request
 import requests
-from datetime import datetime
+import time
 
 app = FastAPI()
 
-OLLAMA_URL_CHAT = "http://ollama:11434/api/chat"
-OLLAMA_URL_GENERATE = "http://ollama:11434/api/generate"
+OLLAMA_URL = "http://ollama:11434/api/generate"
 
 @app.post("/v1/chat/completions")
-async def chat_completions(request: Request):
-    body = await request.json()
+async def chat_completions(req: Request):
+    body = await req.json()
     model = body.get("model", "llama3:8b")
     messages = body.get("messages", [])
+    prompt = messages[-1]["content"] if messages else ""
 
-    ollama_payload = {
-        "model": model,
-        "messages": messages,
-        "stream": False,
-        "options": {"num_predict": 128}
-    }
-
-    resp = requests.post(OLLAMA_URL_CHAT, json=ollama_payload, timeout=120)
-    data = resp.json()
-    content = data.get("message", {}).get("content", "")
-
-    return {
-        "id": "chatcmpl-ollama",
-        "object": "chat.completion",
-        "created": int(datetime.now().timestamp()),
-        "model": model,
-        "choices": [
-            {
-                "index": 0,
-                "message": {"role": "assistant", "content": content},
-                "finish_reason": "stop"
-            }
-        ],
-        "usage": {
-            "prompt_tokens": len(str(messages)),
-            "completion_tokens": len(content.split()),
-            "total_tokens": len(str(messages)) + len(content.split())
-        }
-    }
-
-@app.post("/v1/completions")
-async def completions(request: Request):
-    body = await request.json()
-    model = body.get("model", "llama3:8b")
-    prompt = body.get("prompt", "")
-
-    ollama_payload = {
+    # chama Ollama
+    resp = requests.post(OLLAMA_URL, json={
         "model": model,
         "prompt": prompt,
-        "stream": False,
-        "options": {"num_predict": 128}
-    }
+        "stream": False
+    })
+    ollama_json = resp.json()
 
-    resp = requests.post(OLLAMA_URL_GENERATE, json=ollama_payload, timeout=120)
-    data = resp.json()
-    content = data.get("response", "")
-
+    # adapta para formato OpenAI-like
     return {
-        "id": "cmpl-ollama",
-        "object": "text_completion",
-        "created": int(datetime.now().timestamp()),
+        "id": "chatcmpl-001",
+        "object": "chat.completion",
+        "created": int(time.time()),
         "model": model,
         "choices": [
             {
                 "index": 0,
-                "text": content,
+                "message": {
+                    "role": "assistant",
+                    "content": ollama_json.get("response", "")
+                },
                 "finish_reason": "stop"
             }
-        ],
-        "usage": {
-            "prompt_tokens": len(prompt.split()),
-            "completion_tokens": len(content.split()),
-            "total_tokens": len(prompt.split()) + len(content.split())
-        }
+        ]
     }
