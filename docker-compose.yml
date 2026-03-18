@@ -8,8 +8,7 @@ services:
       - "8070:8080"     # UI
       - "18789:18789"   # Gateway
     environment:
-      OPENCLAW_PRIMARY_MODEL: "ollama/llama3:8b"
-      OLLAMA_BASE_URL: "http://ollama-proxy:8000"
+      OPENCLAW_PRIMARY_MODEL: "llama3:8b"
       OPENCLAW_GATEWAY_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
       AUTH_USERNAME: "${AUTH_USERNAME:-admin}"
       AUTH_PASSWORD: "${AUTH_PASSWORD}"
@@ -22,7 +21,6 @@ services:
       - ./openclaw:/data/.openclaw
     depends_on:
       - browser
-      - ollama-proxy
     networks:
       - openclaw-net
     restart: unless-stopped
@@ -40,26 +38,6 @@ services:
     volumes:
       - browser-data:/config
     shm_size: 2g
-    networks:
-      - openclaw-net
-    restart: unless-stopped
-
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    ports:
-      - "11434:11434"
-    networks:
-      - openclaw-net
-    restart: unless-stopped
-
-  ollama-proxy:
-    build: ./proxy
-    container_name: ollama-proxy
-    ports:
-      - "8000:8000"
-    depends_on:
-      - ollama
     networks:
       - openclaw-net
     restart: unless-stopped
