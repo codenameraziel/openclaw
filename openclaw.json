@@ -20,7 +20,7 @@
     "mode": "replace",
     "providers": {
       "ollama": {
-        "api": "openai-completions",
+        "api": "ollama",
         "baseUrl": "http://ollama-proxy:8000",
         "models": [
           {
@@ -42,8 +42,8 @@
       "token": "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
     },
     "controlUi": {
-      "allowInsecureAuth": false,
-      "dangerouslyDisableDeviceAuth": false,
+      "allowInsecureAuth": true,
+      "dangerouslyDisableDeviceAuth": true,
       "allowedOrigins": [
         "http://192.168.100.105:8070",
         "https://openclaw.teccryptor3dprint.dpdns.org"
@@ -51,8 +51,7 @@
       "enabled": true
     },
     "trustedProxies": [
-      "192.168.100.0/24",
-      "172.19.0.0/16"
+      "192.168.100.0/24"
     ]
   },
   "browser": {
