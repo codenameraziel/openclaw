@@ -58,7 +58,7 @@ services:
     restart: unless-stopped
 
   ollama-proxy:
-    build: .
+    build: ./proxy
     container_name: ollama-proxy
     ports:
       - "8000:8000"

@@ -55,7 +55,7 @@
     ]
   },
   "browser": {
-    "cdpUrl": "http://browser:9222",
+    "cdpUrl": "http://openclaw-browser-1:9222",
     "evaluateEnabled": true,
     "defaultProfile": "openclaw"
   },
