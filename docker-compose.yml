@@ -60,7 +60,7 @@ services:
     environment:
       OLLAMA_HOST: "http://ollama:11434"
     ports:
-      - "8000:8000"     # proxy expõe API compatível
+      - "8000:8000"     # proxy expoe API compativel
     networks:
       - openclaw-net
     restart: unless-stopped
