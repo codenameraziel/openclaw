@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  openclaw:
+    build: .
+    container_name: openclaw-server
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    volumes:
+      - ./data:/root/.openclaw
