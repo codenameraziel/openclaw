@@ -2,10 +2,10 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "ollama/llama3:8b"
+        "primary": "ollama/qwen2.5:7b-instruct-q4_K_M"
       },
       "models": {
-        "ollama/llama3:8b": {
+        "ollama/qwen2.5:7b-instruct-q4_K_M": {
           "alias": "ollama"
         }
       },
@@ -21,12 +21,12 @@
     "providers": {
       "ollama": {
         "api": "ollama",
-        "baseUrl": "http://ollama-proxy:8000",
+        "baseUrl": "http://192.168.100.114:11434",
         "models": [
           {
-            "id": "llama3:8b",
-            "name": "llama3:8b (Ollama)",
-            "contextWindow": 8192,
+            "id": "qwen2.5:7b-instruct-q4_K_M",
+            "name": "Qwen2.5 7B Instruct (Ollama)",
+            "contextWindow": 16384,
             "maxTokens": 2048
           }
         ]
