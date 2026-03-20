@@ -2,10 +2,10 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "ollama/qwen2.5:7b-instruct-q4_K_M"
+        "primary": "ollama/mistral7b"
       },
       "models": {
-        "ollama/qwen2.5:7b-instruct-q4_K_M": {
+        "ollama/mistral7b": {
           "alias": "ollama"
         }
       },
@@ -21,11 +21,11 @@
     "providers": {
       "ollama": {
         "api": "ollama",
-        "baseUrl": "http://192.168.100.114:11434",
+        "baseUrl": "http://192.168.100.114:11434/v1",
         "models": [
           {
-            "id": "qwen2.5:7b-instruct-q4_K_M",
-            "name": "Qwen2.5 7B Instruct (Ollama)",
+            "id": "ollama/mistral7b",
+            "name": "mistral7b (Ollama)",
             "contextWindow": 16384,
             "maxTokens": 2048
           }
