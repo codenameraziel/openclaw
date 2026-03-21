@@ -21,7 +21,7 @@
     "providers": {
       "ollama": {
         "api": "ollama",
-        "baseUrl": "http://192.168.100.114:11434/v1",
+        "baseUrl": "http://192.168.100.114:11434",
         "models": [
           {
             "id": "ollama/mistral7b",
