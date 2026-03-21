@@ -2,12 +2,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "ollama/mistral7b"
-      },
-      "models": {
-        "ollama/mistral7b": {
-          "alias": "ollama"
-        }
+        "primary": "ollama/qwen2.5-coder:7b"
       },
       "workspace": "/data/workspace",
       "maxConcurrent": 4,
@@ -21,13 +16,15 @@
     "providers": {
       "ollama": {
         "api": "ollama",
-        "baseUrl": "http://192.168.100.114:11434",
+        "baseUrl": "http://192.168.100.114", 
+        "apiKey": "ollama", 
         "models": [
           {
-            "id": "ollama/mistral7b",
-            "name": "mistral7b (Ollama)",
+            "id": "qwen2.5-coder:7b",
+            "name": "Qwen 2.5 Coder 7B",
             "contextWindow": 16384,
-            "maxTokens": 2048
+            "maxTokens": 4096,
+            "supportsTools": true 
           }
         ]
       }
@@ -36,7 +33,7 @@
   "gateway": {
     "port": 18789,
     "mode": "local",
-    "bind": "lan",
+    "bind": "0.0.0.0",
     "auth": {
       "mode": "token",
       "token": "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
@@ -51,6 +48,7 @@
       "enabled": true
     },
     "trustedProxies": [
+      "127.0.0.1",
       "192.168.100.0/24"
     ]
   },
@@ -58,6 +56,5 @@
     "cdpUrl": "http://browser:9222",
     "evaluateEnabled": true,
     "defaultProfile": "openclaw"
-  },
-  "wizard": {}
+  }
 }
