@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   app_proxy:
-    image: nginx:latest   # Adicionado para corrigir o erro
+    build: .\openclaw\data\linuxbrew\.linuxbrew\Homebrew   # Diretório onde está o Dockerfile
     environment:
       APP_HOST: openclaw_gateway_1
       APP_PORT: 18789
