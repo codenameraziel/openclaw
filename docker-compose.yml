@@ -1,87 +1,18 @@
-version: '3.8'
-
+version: '3.7'
 services:
-  openclaw-setup:
-    build:
-      context: ./openclaw   # pasta onde está o Dockerfile
-      dockerfile: Dockerfile
+  app_proxy:
     environment:
-      HOME: /home/node
-      TERM: xterm-256color
-      OPENCLAW_CONFIG_DIR: ${OPENCLAW_CONFIG_DIR:-./.openclaw}
-      OPENCLAW_WORKSPACE_DIR: ${OPENCLAW_WORKSPACE_DIR:-./.openclaw/workspace}
-      OPENCLAW_GATEWAY_BIND: ${OPENCLAW_GATEWAY_BIND:-lan}
-      OPENCLAW_GATEWAY_PORT: ${OPENCLAW_GATEWAY_PORT:-18789}
-      OPENCLAW_BRIDGE_PORT: ${OPENCLAW_BRIDGE_PORT:-18790}
-      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN:-}
-      OPENCLAW_TZ: ${OPENCLAW_TZ:-UTC}
+      APP_HOST: openclaw_gateway_1
+      APP_PORT: 18789
+    container_name: openclaw_app_proxy_1
+  gateway:
+    image: >-
+      ghcr.io/getumbrel/openclaw-umbrel:2026.3.13@sha256:21697123f5dbc7aab2281281ba7a9432c2363a25b260cddbbef673af4e0b8eae
+    user: '1000:1000'
+    init: true
+    restart: on-failure
+    stop_grace_period: 1m
     volumes:
-      - openclaw-config:/home/node/.openclaw
-      - openclaw-workspace:/home/node/.openclaw/workspace
-      - /var/run/docker.sock:/var/run/docker.sock
-    stdin_open: true
-    tty: true
-    entrypoint: bash -c
-    command: |
-      set -e
-      echo "🦞 Iniciando OpenClaw Setup..."
-      ./scripts/docker/setup.sh
-      echo "✅ Setup concluído!"
-      echo "Acesse em: http://localhost:18789"
-      tail -f /dev/null
-    networks:
-      - openclaw-net
-
-  openclaw-gateway:
-    build:
-      context: ./openclaw
-      dockerfile: Dockerfile
-    depends_on:
-      - openclaw-setup
-    environment:
-      HOME: /home/node
-      TERM: xterm-256color
-      OPENCLAW_TZ: ${OPENCLAW_TZ:-UTC}
-    volumes:
-      - openclaw-config:/home/node/.openclaw
-      - openclaw-workspace:/home/node/.openclaw/workspace
-    ports:
-      - "${OPENCLAW_GATEWAY_PORT:-18789}:18789"
-      - "${OPENCLAW_BRIDGE_PORT:-18790}:18790"
-    restart: unless-stopped
-    command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:18789/healthz"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 20s
-    networks:
-      - openclaw-net
-
-  openclaw-cli:
-    build:
-      context: ./openclaw
-      dockerfile: Dockerfile
-    depends_on:
-      - openclaw-gateway
-    environment:
-      HOME: /home/node
-      TERM: xterm-256color
-      BROWSER: echo
-    volumes:
-      - openclaw-config:/home/node/.openclaw
-      - openclaw-workspace:/home/node/.openclaw/workspace
-    stdin_open: true
-    tty: true
-    entrypoint: ["node", "dist/index.js"]
-    networks:
-      - openclaw-net
-
-volumes:
-  openclaw-config:
-  openclaw-workspace:
-
-networks:
-  openclaw-net:
-    driver: bridge
+      - ${APP_DATA_DIR}/data:/data
+      - ${APP_DATA_DIR}/data/linuxbrew:/home/linuxbrew
+    container_name: openclaw_gateway_1
