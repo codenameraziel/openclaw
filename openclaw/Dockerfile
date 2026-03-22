@@ -3,16 +3,16 @@
 FROM node:22-bookworm
 
 # Instalar dependências necessárias + cliente Docker
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-    ca-certificates \
-    curl \
-    git \
-    jq \
-    python3 \
-    openssl \
-    docker.io \        # <-- adiciona o cliente Docker
-  && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      ca-certificates \
+      curl \
+      git \
+      jq \
+      python3 \
+      openssl \
+      docker.io && \
+    rm -rf /var/lib/apt/lists/*
 
 # Habilitar corepack para pnpm
 RUN corepack enable
@@ -22,8 +22,8 @@ USER node
 WORKDIR /app
 
 # ✅ Clonar repositório OpenClaw
-RUN git clone https://github.com/openclaw/openclaw.git . \
-  && git checkout main
+RUN git clone https://github.com/openclaw/openclaw.git . && \
+    git checkout main
 
 # Instalar dependências
 RUN --mount=type=cache,id=openclaw-pnpm,target=/home/node/.local/share/pnpm/store,sharing=locked \

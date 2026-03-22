@@ -2,9 +2,8 @@ version: '3.8'
 
 services:
   openclaw-setup:
-    image: ${OPENCLAW_IMAGE:-openclaw:local}
     build:
-      context: .
+      context: ./openclaw   # pasta onde está o Dockerfile
       dockerfile: Dockerfile
     environment:
       HOME: /home/node
@@ -23,24 +22,19 @@ services:
     stdin_open: true
     tty: true
     entrypoint: bash -c
-    command:
-      - |
-        set -e
-        echo "🦞 Iniciando OpenClaw Setup..."
-        echo ""
-        ./scripts/docker/setup.sh
-        echo ""
-        echo "✅ Setup concluído!"
-        echo "Você pode agora acessar o OpenClaw em: http://localhost:18789"
-        echo ""
-        tail -f /dev/null
+    command: |
+      set -e
+      echo "🦞 Iniciando OpenClaw Setup..."
+      ./scripts/docker/setup.sh
+      echo "✅ Setup concluído!"
+      echo "Acesse em: http://localhost:18789"
+      tail -f /dev/null
     networks:
       - openclaw-net
 
   openclaw-gateway:
-    image: ${OPENCLAW_IMAGE:-openclaw:local}
     build:
-      context: .
+      context: ./openclaw
       dockerfile: Dockerfile
     depends_on:
       - openclaw-setup
@@ -66,9 +60,8 @@ services:
       - openclaw-net
 
   openclaw-cli:
-    image: ${OPENCLAW_IMAGE:-openclaw:local}
     build:
-      context: .
+      context: ./openclaw
       dockerfile: Dockerfile
     depends_on:
       - openclaw-gateway
