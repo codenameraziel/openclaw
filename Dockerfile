@@ -2,7 +2,7 @@
 
 FROM node:22-bookworm
 
-# Instalar dependências necessárias
+# Instalar dependências necessárias + cliente Docker
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -11,6 +11,7 @@ RUN apt-get update \
     jq \
     python3 \
     openssl \
+    docker.io \        # <-- adiciona o cliente Docker
   && rm -rf /var/lib/apt/lists/*
 
 # Habilitar corepack para pnpm
