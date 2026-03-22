@@ -16,15 +16,11 @@ RUN apt-get update \
 # Habilitar corepack para pnpm
 RUN corepack enable
 
-# Criar usuário node
-RUN useradd --create-home --shell /bin/bash node \
-  && mkdir -p /app \
-  && chown node:node /app
-
+# Definir usuário e diretório de trabalho
 USER node
 WORKDIR /app
 
-# ✅ CLONAR REPOSITÓRIO OPENCLAW
+# ✅ Clonar repositório OpenClaw
 RUN git clone https://github.com/openclaw/openclaw.git . \
   && git checkout main
 
@@ -40,4 +36,5 @@ ENV HOME=/home/node
 
 EXPOSE 18789 18790
 
-CMD ["bash"]
+# ✅ Iniciar aplicação
+CMD ["pnpm", "start"]
