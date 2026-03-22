@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   app_proxy:
-    build: .\openclaw\data\linuxbrew\.linuxbrew\Homebrew   # Diretório onde está o Dockerfile
+    build: .\openclaw\data\linuxbrew\.linuxbrew\Homebrew   
     environment:
       APP_HOST: openclaw_gateway_1
       APP_PORT: 18789
