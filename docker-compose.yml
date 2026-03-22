@@ -19,7 +19,7 @@ services:
     volumes:
       - openclaw-config:/home/node/.openclaw
       - openclaw-workspace:/home/node/.openclaw/workspace
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock   # <-- socket do Docker montado
     stdin_open: true
     tty: true
     entrypoint: bash -c
