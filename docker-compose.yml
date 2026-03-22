@@ -19,7 +19,7 @@ services:
     volumes:
       - openclaw-config:/home/node/.openclaw
       - openclaw-workspace:/home/node/.openclaw/workspace
-      - /var/run/docker.sock:/var/run/docker.sock   # <-- socket do Docker montado
+      - /var/run/docker.sock:/var/run/docker.sock
     stdin_open: true
     tty: true
     entrypoint: bash -c
@@ -34,6 +34,8 @@ services:
         echo "Você pode agora acessar o OpenClaw em: http://localhost:18789"
         echo ""
         tail -f /dev/null
+    networks:
+      - openclaw-net
 
   openclaw-gateway:
     image: ${OPENCLAW_IMAGE:-openclaw:local}
@@ -60,6 +62,8 @@ services:
       timeout: 5s
       retries: 5
       start_period: 20s
+    networks:
+      - openclaw-net
 
   openclaw-cli:
     image: ${OPENCLAW_IMAGE:-openclaw:local}
@@ -68,7 +72,6 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - openclaw-gateway
-    network_mode: "service:openclaw-gateway"
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -79,7 +82,13 @@ services:
     stdin_open: true
     tty: true
     entrypoint: ["node", "dist/index.js"]
+    networks:
+      - openclaw-net
 
 volumes:
   openclaw-config:
   openclaw-workspace:
+
+networks:
+  openclaw-net:
+    driver: bridge
