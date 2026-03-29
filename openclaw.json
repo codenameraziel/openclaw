@@ -1,16 +1,21 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.3.24",
-    "lastTouchedAt": "2026-03-28T16:06:44.670Z"
+    "lastTouchedAt": "2026-03-29T02:20:17.583Z"
   },
   "wizard": {
-    "lastRunAt": "2026-03-28T16:05:39.992Z",
+    "lastRunAt": "2026-03-29T02:14:55.034Z",
     "lastRunVersion": "2026.3.24",
-    "lastRunCommand": "onboard",
+    "lastRunCommand": "doctor",
     "lastRunMode": "local"
   },
   "update": {
     "checkOnStart": false
+  },
+  "browser": {
+    "evaluateEnabled": true,
+    "cdpUrl": "http://browser:9222",
+    "defaultProfile": "openclaw"
   },
   "auth": {
     "profiles": {
@@ -24,16 +29,18 @@
     "mode": "merge",
     "providers": {
       "ollama": {
-        "baseUrl": "http://192.168.100.114:11434",
-        "apiKey": "OLLAMA_API_KEY",
-        "api": "ollama",
+        "baseUrl": "http://192.168.100.114:11434/v1",
+        "api": "openai-completions",
         "models": [
           {
             "id": "llama3.3",
-            "name": "llama3.3",
-            "api": "ollama",
+            "name": "Llama 3.3",
+            "api": "openai-completions",
             "reasoning": false,
-            "input": ["text"],
+            "input": [
+              "text",
+              "text"
+            ],
             "cost": {
               "input": 0,
               "output": 0,
@@ -48,7 +55,9 @@
             "name": "Llama3.1:latest",
             "api": "ollama",
             "reasoning": false,
-            "input": ["text"],
+            "input": [
+              "text"
+            ],
             "cost": {
               "input": 0,
               "output": 0,
@@ -70,7 +79,7 @@
       "models": {
         "ollama/Llama3.1:latest": {}
       },
-      "workspace": "/data/.openclaw/workspace"
+      "workspace": "/data/workspace"
     }
   },
   "tools": {
@@ -110,20 +119,24 @@
   "gateway": {
     "port": 18789,
     "mode": "local",
-    "bind": "lan",
+    "bind": "loopback",
     "controlUi": {
       "enabled": true,
-      "allowInsecureAuth": true,
-      "dangerouslyDisableDeviceAuth": true,
       "allowedOrigins": [
         "http://192.168.100.105:8070",
         "https://openclaw.teccryptor3dprint.dpdns.org"
-      ]
+      ],
+      "allowInsecureAuth": true,
+      "dangerouslyDisableDeviceAuth": true
     },
     "auth": {
       "mode": "token",
       "token": "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
     },
+    "trustedProxies": [
+      "127.0.0.1",
+      "192.168.100.0/24"
+    ],
     "tailscale": {
       "mode": "off",
       "resetOnExit": false
@@ -138,11 +151,7 @@
         "reminders.add",
         "sms.send"
       ]
-    },
-    "trustedProxies": [
-      "127.0.0.1",
-      "192.168.100.0/24"
-    ]
+    }
   },
   "plugins": {
     "entries": {
@@ -153,9 +162,5 @@
         }
       }
     }
-  },
-  "channels": {},
-  "doctorFix": {
-    "enabled": false
   }
 }
