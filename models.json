@@ -6,8 +6,8 @@
       "api": "ollama",
       "models": [
         {
-          "id": "glm-4.7-flash",
-          "name": "glm-4.7-flash",
+          "id": "llama3.3",
+          "name": "llama3.3",
           "reasoning": false,
           "input": [
             "text"
