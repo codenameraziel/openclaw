@@ -22,7 +22,7 @@ services:
       - openclaw-data:/data
       - ./openclaw.json:/app/config/openclaw.json
       - ./models.json:/openclaw/agents/main/agent/models.json
-      - ./openclaw:/data/.openclaw
+      - ./openclaw:/home/node/.openclaw
     depends_on:
       - browser
     networks:
