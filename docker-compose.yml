@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   openclaw:
-    image: coollabsio/openclaw-browser:latest
+    image: coollabsio/openclaw:latest
     container_name: openclaw
     ports:
       - "8070:8080"     # UI
