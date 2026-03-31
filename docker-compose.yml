@@ -1,46 +1,54 @@
-version: "3.7"
+version: "3.9"
 
 services:
-  openclaw-gateway:
-    image: ghcr.io/harmalh/openclaw-umbrel:candidate-v2026.1.30
-    container_name: openclaw-gateway
-    user: "1000:1000"
-
-    environment:
-      OPENCLAW_GATEWAY_TOKEN: ${GATEWAY_TOKEN:-seu-token-secreto}
-      OPENCLAW_STATE_DIR: /data/.clawdbot
-      OPENCLAW_WORKSPACE_DIR: /data/clawd
-      OPENCLAW_LOG_DIR: /data/logs
-      NODE_ENV: production
-      HOME: /home/node
-
-    volumes:
-      - ./data:/data
-
-    expose:
-      - "18789"
-
-    restart: unless-stopped
-    init: true
-    stop_grace_period: 30s
-
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:18789/healthz || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-
-  nginx:
-    image: nginx:latest
-    container_name: nginx-proxy
-    depends_on:
-      - openclaw-gateway
+  openclaw:
+    image: openclaw:local
+    container_name: openclaw
     ports:
-      - "80:80"
-      - "443:443"
+      - "8070:8080"     # UI
+      - "18789:18789"   # Gateway API
+    environment:
+      OPENCLAW_PRIMARY_MODEL: "ollama/Llama3.1:latest"
+      OLLAMA_BASE_URL: "http://192.168.100.114:11434"
+      OPENCLAW_GATEWAY_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
+      AUTH_USERNAME: "admin"
+      AUTH_PASSWORD: "$r2715i08"
+      BROWSER_CDP_URL: "http://browser:9222"
+      BROWSER_DEFAULT_PROFILE: "openclaw"
+      BROWSER_EVALUATE_ENABLED: "true"
+      LLM_TIMEOUT: 300
+      REQUEST_TIMEOUT: 300
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/logs:/var/log/nginx
-      - ./nginx/certs:/etc/nginx/certs
+      - openclaw-data:/data
+      - ./openclaw.json:/app/config/openclaw.json
+      - ./models.json:/openclaw/agents/main/agent/models.json
+      - ./openclaw:/home/node/.openclaw
+    depends_on:
+      - browser
+    networks:
+      - openclaw-net
     restart: unless-stopped
+
+  browser:
+    image: coollabsio/openclaw-browser:latest
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Etc/UTC
+      CHROME_CLI: "--remote-debugging-port=9222"
+      GATEWAY_URL: "ws://openclaw:18789"
+      SELKIES_MASTER_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
+    volumes:
+      - browser-data:/config
+    shm_size: 2g
+    networks:
+      - openclaw-net
+    restart: unless-stopped
+
+volumes:
+  openclaw-data:
+  browser-data:
+
+networks:
+  openclaw-net:
+    driver: bridge
