@@ -1,21 +1,16 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.3.24",
-    "lastTouchedAt": "2026-03-29T02:20:17.583Z"
+    "lastTouchedAt": "2026-03-28T16:06:44.670Z"
   },
   "wizard": {
-    "lastRunAt": "2026-03-29T02:14:55.034Z",
+    "lastRunAt": "2026-03-28T16:05:39.992Z",
     "lastRunVersion": "2026.3.24",
-    "lastRunCommand": "doctor",
+    "lastRunCommand": "onboard",
     "lastRunMode": "local"
   },
   "update": {
     "checkOnStart": false
-  },
-  "browser": {
-    "evaluateEnabled": true,
-    "cdpUrl": "http://browser:9222",
-    "defaultProfile": "openclaw"
   },
   "auth": {
     "profiles": {
@@ -29,16 +24,16 @@
     "mode": "merge",
     "providers": {
       "ollama": {
-        "baseUrl": "http://192.168.100.114:11434/v1",
-        "api": "openai-completions",
+        "baseUrl": "http://192.168.100.114:11434",
+        "apiKey": "OLLAMA_API_KEY",
+        "api": "ollama",
         "models": [
           {
-            "id": "llama3.3",
-            "name": "Llama 3.3",
-            "api": "openai-completions",
+            "id": "glm-4.7-flash",
+            "name": "glm-4.7-flash",
+            "api": "ollama",
             "reasoning": false,
             "input": [
-              "text",
               "text"
             ],
             "cost": {
@@ -79,7 +74,7 @@
       "models": {
         "ollama/Llama3.1:latest": {}
       },
-      "workspace": "/data/workspace"
+      "workspace": "/data/.openclaw/workspace"
     }
   },
   "tools": {
@@ -121,22 +116,13 @@
     "mode": "local",
     "bind": "loopback",
     "controlUi": {
-      "enabled": true,
-      "allowedOrigins": [
-        "http://192.168.100.105:8070",
-        "https://openclaw.teccryptor3dprint.dpdns.org"
-      ],
       "allowInsecureAuth": true,
       "dangerouslyDisableDeviceAuth": true
     },
     "auth": {
       "mode": "token",
-      "token": "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
+      "token": "94241ba7d7acae8603dc42d94527afeb3ec6cac1a4a6d95a"
     },
-    "trustedProxies": [
-      "127.0.0.1",
-      "192.168.100.0/24"
-    ],
     "tailscale": {
       "mode": "off",
       "resetOnExit": false
@@ -158,7 +144,9 @@
       "google": {
         "enabled": true,
         "config": {
-          "webSearch": {}
+          "webSearch": {
+            "apiKey": "AIzaSyCNdd19VO7t47jnTYkoDL3GgA4RuDVeXMU"
+          }
         }
       }
     }
