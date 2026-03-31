@@ -92,6 +92,20 @@
     "restart": true,
     "ownerDisplay": "raw"
   },
+  "channels": {},
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "lan",
+    "controlUi": {
+      "enabled": true,
+      "allowedOrigins": [
+        "http://192.168.100.105:8070",
+        "https://openclaw.teccryptor3dprint.dpdns.org"
+      ],
+      "allowInsecureAuth": true,
+      "dangerouslyDisableDeviceAuth": true
+    },
   "session": {
     "dmScope": "per-channel-peer"
   },
