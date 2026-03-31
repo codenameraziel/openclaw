@@ -8,7 +8,7 @@ services:
       - "8070:8080"     # UI
       - "18789:18789"   # Gateway API
     environment:
-      OPENCLAW_PRIMARY_MODEL: "ollama/Llama3.1:latest"
+      OPENCLAW_PRIMARY_MODEL: "ollama/glm-4.7-flash"
       OLLAMA_BASE_URL: "http://192.168.100.114:11434"
       OPENCLAW_GATEWAY_TOKEN: "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
       AUTH_USERNAME: "admin"

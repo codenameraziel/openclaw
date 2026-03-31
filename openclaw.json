@@ -33,9 +33,7 @@
             "name": "glm-4.7-flash",
             "api": "ollama",
             "reasoning": false,
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "cost": {
               "input": 0,
               "output": 0,
@@ -46,13 +44,11 @@
             "maxTokens": 8192
           },
           {
-            "id": "Llama3.1:latest",
-            "name": "Llama3.1:latest",
+            "id": "qwen2.5:7b",
+            "name": "qwen2.5:7b",
             "api": "ollama",
             "reasoning": false,
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
             "cost": {
               "input": 0,
               "output": 0,
@@ -69,10 +65,10 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "ollama/Llama3.1:latest"
+        "primary": "ollama/qwen2.5:7b"
       },
       "models": {
-        "ollama/Llama3.1:latest": {}
+        "ollama/qwen2.5:7b": {}
       },
       "workspace": "/data/.openclaw/workspace"
     }
@@ -92,7 +88,19 @@
     "restart": true,
     "ownerDisplay": "raw"
   },
-  "channels": {},
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "bootstrap-extra-files": { "enabled": true },
+        "command-logger": { "enabled": true },
+        "session-memory": { "enabled": true }
+      }
+    }
+  },
   "gateway": {
     "port": 18789,
     "mode": "local",
@@ -106,37 +114,14 @@
       "allowInsecureAuth": true,
       "dangerouslyDisableDeviceAuth": true
     },
-  "session": {
-    "dmScope": "per-channel-peer"
-  },
-  "hooks": {
-    "internal": {
-      "enabled": true,
-      "entries": {
-        "bootstrap-extra-files": {
-          "enabled": true
-        },
-        "command-logger": {
-          "enabled": true
-        },
-        "session-memory": {
-          "enabled": true
-        }
-      }
-    }
-  },
-  "gateway": {
-    "port": 18789,
-    "mode": "local",
-    "bind": "loopback",
-    "controlUi": {
-      "allowInsecureAuth": true,
-      "dangerouslyDisableDeviceAuth": true
-    },
     "auth": {
       "mode": "token",
-      "token": "94241ba7d7acae8603dc42d94527afeb3ec6cac1a4a6d95a"
+      "token": "b152d21cd7fb35576276938afe56acd7f8bc74cc8b9dddd2"
     },
+    "trustedProxies": [
+      "127.0.0.1",
+      "192.168.100.0/24"
+    ],
     "tailscale": {
       "mode": "off",
       "resetOnExit": false
@@ -164,5 +149,9 @@
         }
       }
     }
+  },
+  "channels": {},
+  "doctorFix": {
+    "enabled": false
   }
 }
