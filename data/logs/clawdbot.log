@@ -1,0 +1,64 @@
+2026-03-31T00:31:05.210Z [canvas] host mounted at http://0.0.0.0:18789/__openclaw__/canvas/ (root /home/node/.openclaw/canvas)
+2026-03-31T00:31:05.273Z [heartbeat] started
+2026-03-31T00:31:05.277Z [gateway] agent model: anthropic/claude-opus-4-5
+2026-03-31T00:31:05.278Z [gateway] listening on ws://0.0.0.0:18789 (PID 45)
+2026-03-31T00:31:05.279Z [gateway] log file: /tmp/openclaw/openclaw-2026-03-31.log
+2026-03-31T00:31:05.287Z [browser/service] Browser control service ready (profiles=2)
+2026-03-31T00:31:05.484Z [gateway] update available (latest): v2026.3.28 (current v2026.1.30). Run: openclaw update
+2026-03-31T00:51:52.275Z [canvas] host mounted at http://0.0.0.0:18789/__openclaw__/canvas/ (root /home/node/.openclaw/canvas)
+2026-03-31T00:51:52.392Z [heartbeat] started
+2026-03-31T00:51:52.399Z [gateway] agent model: anthropic/claude-opus-4-5
+2026-03-31T00:51:52.404Z [gateway] listening on ws://0.0.0.0:18789 (PID 44)
+2026-03-31T00:51:52.409Z [gateway] log file: /tmp/openclaw/openclaw-2026-03-31.log
+2026-03-31T00:51:52.420Z [browser/service] Browser control service ready (profiles=2)
+2026-03-31T00:58:37.525Z [canvas] host mounted at http://0.0.0.0:18789/__openclaw__/canvas/ (root /home/node/.openclaw/canvas)
+2026-03-31T00:58:37.589Z [heartbeat] started
+2026-03-31T00:58:37.593Z [gateway] agent model: anthropic/claude-opus-4-5
+2026-03-31T00:58:37.594Z [gateway] listening on ws://0.0.0.0:18789 (PID 42)
+2026-03-31T00:58:37.596Z [gateway] log file: /tmp/openclaw/openclaw-2026-03-31.log
+2026-03-31T00:58:37.603Z [browser/service] Browser control service ready (profiles=2)
+2026-03-31T01:06:20.672Z [canvas] host mounted at http://0.0.0.0:18789/__openclaw__/canvas/ (root /home/node/.openclaw/canvas)
+2026-03-31T01:06:20.736Z [heartbeat] started
+2026-03-31T01:06:20.740Z [gateway] agent model: anthropic/claude-opus-4-5
+2026-03-31T01:06:20.741Z [gateway] listening on ws://0.0.0.0:18789 (PID 43)
+2026-03-31T01:06:20.743Z [gateway] log file: /tmp/openclaw/openclaw-2026-03-31.log
+2026-03-31T01:06:20.751Z [browser/service] Browser control service ready (profiles=2)
+2026-03-31T01:12:59.933Z [canvas] host mounted at http://0.0.0.0:18789/__openclaw__/canvas/ (root /home/node/.openclaw/canvas)
+2026-03-31T01:13:00.002Z [heartbeat] started
+2026-03-31T01:13:00.007Z [gateway] agent model: anthropic/claude-opus-4-5
+2026-03-31T01:13:00.009Z [gateway] listening on ws://0.0.0.0:18789 (PID 43)
+2026-03-31T01:13:00.012Z [gateway] log file: /tmp/openclaw/openclaw-2026-03-31.log
+2026-03-31T01:13:00.023Z [browser/service] Browser control service ready (profiles=2)
+2026-03-31T01:15:40.707Z [canvas] host mounted at http://0.0.0.0:18789/__openclaw__/canvas/ (root /home/node/.openclaw/canvas)
+2026-03-31T01:15:40.771Z [heartbeat] started
+2026-03-31T01:15:40.775Z [gateway] agent model: anthropic/claude-opus-4-5
+2026-03-31T01:15:40.777Z [gateway] listening on ws://0.0.0.0:18789 (PID 44)
+2026-03-31T01:15:40.778Z [gateway] log file: /tmp/openclaw/openclaw-2026-03-31.log
+2026-03-31T01:15:40.786Z [browser/service] Browser control service ready (profiles=2)
+2026-03-31T01:20:18.454Z [canvas] host mounted at http://0.0.0.0:18789/__openclaw__/canvas/ (root /home/node/.openclaw/canvas)
+2026-03-31T01:20:18.517Z [heartbeat] started
+2026-03-31T01:20:18.521Z [gateway] agent model: anthropic/claude-opus-4-5
+2026-03-31T01:20:18.523Z [gateway] listening on ws://0.0.0.0:18789 (PID 45)
+2026-03-31T01:20:18.524Z [gateway] log file: /tmp/openclaw/openclaw-2026-03-31.log
+2026-03-31T01:20:18.532Z [browser/service] Browser control service ready (profiles=2)
+2026-03-31T01:50:18.751Z [diagnostic] lane task error: lane=main durationMs=3 error="Error: No API key found for provider "anthropic". Auth store: /data/.clawdbot/agents/main/agent/auth-profiles.json (agentDir: /data/.clawdbot/agents/main/agent). Configure auth for this agent (openclaw agents add <id>) or copy auth-profiles.json from the main agentDir."
+2026-03-31T01:50:18.753Z [diagnostic] lane task error: lane=session:agent:main:main durationMs=7 error="Error: No API key found for provider "anthropic". Auth store: /data/.clawdbot/agents/main/agent/auth-profiles.json (agentDir: /data/.clawdbot/agents/main/agent). Configure auth for this agent (openclaw agents add <id>) or copy auth-profiles.json from the main agentDir."
+2026-03-31T01:50:18.755Z Embedded agent failed before reply: No API key found for provider "anthropic". Auth store: /data/.clawdbot/agents/main/agent/auth-profiles.json (agentDir: /data/.clawdbot/agents/main/agent). Configure auth for this agent (openclaw agents add <id>) or copy auth-profiles.json from the main agentDir.
+2026-03-31T02:02:40.218Z [canvas] host mounted at http://0.0.0.0:18789/__openclaw__/canvas/ (root /home/node/.openclaw/canvas)
+2026-03-31T02:02:40.282Z [heartbeat] started
+2026-03-31T02:02:40.288Z [gateway] agent model: anthropic/claude-opus-4-5
+2026-03-31T02:02:40.290Z [gateway] listening on ws://0.0.0.0:18789 (PID 43)
+2026-03-31T02:02:40.292Z [gateway] log file: /tmp/openclaw/openclaw-2026-03-31.log
+2026-03-31T02:02:40.299Z [browser/service] Browser control service ready (profiles=2)
+2026-03-31T02:13:49.023Z [canvas] host mounted at http://0.0.0.0:18789/__openclaw__/canvas/ (root /home/node/.openclaw/canvas)
+2026-03-31T02:13:49.087Z [heartbeat] started
+2026-03-31T02:13:49.090Z [gateway] agent model: anthropic/claude-opus-4-5
+2026-03-31T02:13:49.092Z [gateway] listening on ws://0.0.0.0:18789 (PID 43)
+2026-03-31T02:13:49.093Z [gateway] log file: /tmp/openclaw/openclaw-2026-03-31.log
+2026-03-31T02:13:49.100Z [browser/service] Browser control service ready (profiles=2)
+2026-03-31T02:34:25.592Z [canvas] host mounted at http://0.0.0.0:18789/__openclaw__/canvas/ (root /home/node/.openclaw/canvas)
+2026-03-31T02:34:25.679Z [heartbeat] started
+2026-03-31T02:34:25.684Z [gateway] agent model: anthropic/claude-opus-4-5
+2026-03-31T02:34:25.687Z [gateway] listening on ws://0.0.0.0:18789 (PID 43)
+2026-03-31T02:34:25.690Z [gateway] log file: /tmp/openclaw/openclaw-2026-03-31.log
+2026-03-31T02:34:25.702Z [browser/service] Browser control service ready (profiles=2)
